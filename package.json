@@ -28,5 +28,18 @@
     "tailwindcss": "4.1.7",
     "typescript": "5.7.3",
     "vite": "6.0.7"
-  }
+  },
+  "description": "## Getting Started",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunnilu/atlas-music-player.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sunnilu/atlas-music-player/issues"
+  },
+  "homepage": "https://github.com/Sunnilu/atlas-music-player#readme"
 }
