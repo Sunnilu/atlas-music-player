@@ -30,19 +30,23 @@ export default function MusicPlayer() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg">
+    <div 
+      className="fixed w-[456px] h-[1219px] left-[2463px] top-[-637px] bg-white rounded-xl shadow-[0_4px_4px_0_#D5D7D840] md:max-w-[768px] md:h-auto md:static md:rounded-none md:shadow-none"
+    >
       <CoverArt song={currentSong} isPlaying={isPlaying} />
       <SongTitle song={currentSong} />
       <PlayControls isPlaying={isPlaying} onPlay={handlePlay} />
       <VolumeControls volume={volume} onVolumeChange={handleVolume} />
-      {playlist.map(song => (
-        <PlayListItem 
-          key={song.id}
-          song={song}
-          isSelected={currentSong?.id === song.id}
-          onClick={() => handlePlayListItem(song)}
-        />
-      ))}
+      <div className="overflow-y-auto">
+        {playlist.map(song => (
+          <PlayListItem 
+            key={song.id}
+            song={song}
+            isSelected={currentSong?.id === song.id}
+            onClick={() => handlePlayListItem(song)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
