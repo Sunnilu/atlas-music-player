@@ -5,18 +5,18 @@ import SongTitle from './SongTitle';
 import PlayControls from './PlayControls';
 import VolumeControls from './VolumeControls';
 
-const CurrentlyPlaying = () => {
+const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) => {
   return (
     <div className="flex flex-col items-center justify-center bg-gray-900 p-6 rounded-xl shadow-lg">
-      <CoverArt />
+      <CoverArt song={song} isPlaying={isPlaying} />
       <div className="mt-4 w-full">
-        <SongTitle />
+        <SongTitle song={song} />
       </div>
       <div className="mt-4 w-full">
-        <PlayControls />
+        <PlayControls isPlaying={isPlaying} onPlay={onPlay} />
       </div>
       <div className="mt-4 w-full">
-        <VolumeControls />
+        <VolumeControls volume={volume} onVolumeChange={onVolumeChange} />
       </div>
     </div>
   );
