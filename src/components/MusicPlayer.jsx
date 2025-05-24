@@ -31,7 +31,7 @@ export default function MusicPlayer() {
 
   return (
     <div 
-      className="fixed w-[456px] h-[1219px] left-[2463px] top-[-637px] bg-white rounded-xl shadow-[0_4px_4px_0_#D5D7D840] md:max-w-[768px] md:h-auto md:static md:rounded-none md:shadow-none"
+      className="fixed w-[896px] h-[640px] left-[1460px] top-[-637px] bg-white rounded-xl shadow-[0_4px_4px_0_#D5D7D840] md:max-w-[1024px] md:h-auto md:static md:rounded-none md:shadow-none"
     >
       <CoverArt song={currentSong} isPlaying={isPlaying} />
       <SongTitle song={currentSong} />
