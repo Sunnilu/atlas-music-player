@@ -1,18 +1,13 @@
-import React from 'react';
-
-const VolumeControls = ({ volume = 50, onChange }) => {
+// src/components/VolumeControls.jsx
+export default function VolumeControls() {
   return (
-    <div className="flex items-center gap-2 w-32">
-      <input
-        type="range"
-        min="0"
+    <div className="mb-6">
+      <input 
+        type="range" 
+        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        min="0" 
         max="100"
-        value={volume}
-        onChange={onChange}
-        className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-white"
       />
     </div>
   );
-};
-
-export default VolumeControls;
+}

@@ -1,19 +1,15 @@
-import React from 'react';
-
-const PlayListItem = ({
-  title = "Song Title",
-  artist = "Artist Name",
-  length = "3:45"
-}) => {
+// src/components/PlayListItem.jsx
+export default function PlayListItem() {
   return (
-    <div className="flex items-center justify-between py-2 px-4 hover:bg-gray-800 rounded-md cursor-pointer">
-      <div className="flex flex-col">
-        <span className="text-sm text-white font-medium truncate">{title}</span>
-        <span className="text-xs text-gray-400 truncate">{artist}</span>
+    <div className="flex justify-between py-3 border-t border-gray-200">
+      <div className="flex items-center gap-4">
+        <div className="w-10 h-10 bg-gray-100 rounded-lg" />
+        <div>
+          <h3 className="text-sm font-medium text-gray-900">Song Title</h3>
+          <p className="text-sm text-gray-600">Artist Name</p>
+        </div>
       </div>
-      <span className="text-xs text-gray-400">{length}</span>
+      <span className="text-sm text-gray-500">3:45</span>
     </div>
   );
-};
-
-export default PlayListItem;
+}

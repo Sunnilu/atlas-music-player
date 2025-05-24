@@ -1,12 +1,9 @@
-import React from 'react';
-
-const SongTitle = ({ title = "Song Title", author = "Artist Name" }) => {
+// src/components/SongTitle.jsx
+export default function SongTitle() {
   return (
-    <div className="flex flex-col">
-      <span className="text-sm font-semibold text-white truncate">{title}</span>
-      <span className="text-xs text-gray-400 truncate">{author}</span>
+    <div className="text-center mb-4">
+      <h2 className="text-2xl font-bold text-gray-900 mb-2">Song Title</h2>
+      <p className="text-gray-600">Artist Name</p>
     </div>
   );
-};
-
-export default SongTitle;
+}

@@ -1,16 +1,11 @@
-import React from 'react';
-import coverImage from '../assets/cover-placeholder.jpg'; // Update with actual file name if different
+// src/components/CoverArt.jsx
+import { useState } from 'react';
+import { Music } from 'lucide-react';
 
-const CoverArt = () => {
+export default function CoverArt() {
   return (
-    <div className="w-32 h-32 overflow-hidden rounded-md">
-      <img
-        src={coverImage}
-        alt="Cover Art"
-        className="w-full h-full object-cover"
-      />
+    <div className="w-48 h-48 mx-auto mb-6 bg-gray-100 rounded-lg flex items-center justify-center">
+      <Music className="w-12 h-12 text-gray-400" />
     </div>
   );
-};
-
-export default CoverArt;
+}
