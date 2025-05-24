@@ -1,6 +1,6 @@
 // src/components/CoverArt.jsx
 import { useState } from 'react';
-import { Music } from 'lucide-react';
+import { Music } from 'react';
 
 export default function CoverArt() {
   return (

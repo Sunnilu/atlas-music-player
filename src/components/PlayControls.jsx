@@ -1,5 +1,5 @@
 // src/components/PlayControls.jsx
-import { Play, Pause, SkipBack, SkipForward, Shuffle } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Shuffle } from 'react';
 
 export default function PlayControls() {
   return (
