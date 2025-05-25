@@ -4,16 +4,18 @@ import PlayListItem from './PlayListItem';
 
 const Playlist = ({ songs, selectedSongId, onSelectSong }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mt-4 md:mt-0 w-full">
-      <h2 className="text-lg font-bold mb-2">Playlist</h2>
-      {songs.map((song) => (
-        <PlayListItem
-          key={song.id}
-          song={song}
-          isSelected={song.id === selectedSongId}
-          onClick={() => onSelectSong(song)}
-        />
-      ))}
+    <div className="w-full md:w-1/2 mt-4 md:mt-0">
+      <h2 className="text-xl font-bold px-4 pb-2">Playlist</h2>
+      <div className="rounded-lg overflow-hidden">
+        {songs.map((song) => (
+          <PlayListItem
+            key={song.id}
+            song={song}
+            isSelected={song.id === selectedSongId}
+            onClick={() => onSelectSong(song)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
