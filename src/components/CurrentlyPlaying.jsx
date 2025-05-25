@@ -1,23 +1,35 @@
 // src/components/CurrentlyPlaying.jsx
 import React from 'react';
-import CoverArt from './CoverArt';
-import SongTitle from './SongTitle';
-import PlayControls from './PlayControls';
-import VolumeControls from './VolumeControls';
 
 const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) => {
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-900 p-6 rounded-xl shadow-lg">
-      <CoverArt song={song} isPlaying={isPlaying} />
-      <div className="mt-4 w-full">
-        <SongTitle song={song} />
+    <div className="flex flex-col items-center bg-gray-900 text-white p-4 rounded-lg w-full">
+      <div className="text-center mb-4">
+        {song ? (
+          <>
+            <p className="text-lg font-semibold">{song.title}</p>
+            <p className="text-sm text-gray-300">{song.artist}</p>
+          </>
+        ) : (
+          <p>No song selected</p>
+        )}
       </div>
-      <div className="mt-4 w-full">
-        <PlayControls isPlaying={isPlaying} onPlay={onPlay} />
-      </div>
-      <div className="mt-4 w-full">
-        <VolumeControls volume={volume} onVolumeChange={onVolumeChange} />
-      </div>
+
+      <button
+        onClick={onPlay}
+        className="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600"
+      >
+        {isPlaying ? 'Pause' : 'Play'}
+      </button>
+
+      <input
+        type="range"
+        className="mt-4 w-full"
+        min={0}
+        max={100}
+        value={volume}
+        onChange={(e) => onVolumeChange(Number(e.target.value))}
+      />
     </div>
   );
 };
