@@ -2,27 +2,41 @@
 import { useState } from 'react';
 import CurrentlyPlaying from './CurrentlyPlaying';
 import Playlist from './Playlist';
+import Footer from './Footer';
 
 export default function MusicPlayer() {
-  const [currentSong, setCurrentSong] = useState(null);
+  const [currentSong, setCurrentSong] = useState({
+    id: 1,
+    title: 'Painted in Blue',
+    artist: 'Soul Canvas',
+    duration: '5:55'
+  });
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(100);
-  const [playlist, setPlaylist] = useState([
-    { id: 1, title: 'Song 1', artist: 'Artist 1', duration: '3:45' },
-    { id: 2, title: 'Song 2', artist: 'Artist 2', duration: '4:12' },
-    { id: 3, title: 'Song 3', artist: 'Artist 3', duration: '3:30' }
-  ]);
+  const [volume, setVolume] = useState(70);
+
+  const playlist = [
+    { id: 1, title: 'Painted in Blue', artist: 'Soul Canvas', duration: '5:55' },
+    { id: 2, title: 'Tidal Drift', artist: 'Echoes of the Sea', duration: '8:02' },
+    { id: 3, title: 'Fading Shadows', artist: 'The Emberlight', duration: '3:01' },
+    { id: 4, title: 'Cosmic Drift', artist: 'Solar Flare', duration: '5:01' },
+    { id: 5, title: 'Urban Serenade', artist: 'Midnight Groove', duration: '4:54' },
+    { id: 6, title: 'Whispers in the Wind', artist: 'Rust & Ruin', duration: '6:13' },
+    { id: 7, title: 'Electric Fever', artist: 'Neon Jungle', duration: '8:41' },
+    { id: 8, title: 'Edge of the Abyss', artist: 'Steel Horizon', duration: '2:27' },
+    { id: 9, title: 'Golden Haze', artist: 'Velvet Waves', duration: '3:15' },
+    { id: 10, title: 'Shatter the Silence', artist: 'Thunderclap Echo', duration: '8:22' }
+  ];
 
   const handlePlay = () => setIsPlaying(!isPlaying);
-  const handleVolume = (newVolume) => setVolume(newVolume);
-  const handlePlayListItem = (song) => {
+  const handleVolume = (v) => setVolume(v);
+  const handleSelectSong = (song) => {
     setCurrentSong(song);
     setIsPlaying(true);
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 max-w-6xl mx-auto md:flex md:space-x-6">
-      <div className="md:w-1/2">
+    <div className="flex flex-col min-h-screen bg-white text-gray-900">
+      <main className="flex flex-col md:flex-row max-w-6xl mx-auto w-full p-4 md:space-x-6">
         <CurrentlyPlaying
           song={currentSong}
           isPlaying={isPlaying}
@@ -30,14 +44,13 @@ export default function MusicPlayer() {
           volume={volume}
           onVolumeChange={handleVolume}
         />
-      </div>
-      <div className="md:w-1/2 mt-6 md:mt-0">
         <Playlist
-          selectedSongId={currentSong?.id}
-          onSelectSong={handlePlayListItem}
           songs={playlist}
+          selectedSongId={currentSong?.id}
+          onSelectSong={handleSelectSong}
         />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }
