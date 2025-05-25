@@ -4,7 +4,8 @@ import PlayListItem from './PlayListItem';
 
 const Playlist = ({ songs, selectedSongId, onSelectSong }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md overflow-y-auto max-h-[300px]">
+    <div className="bg-white p-4 rounded-lg shadow-md mt-4 md:mt-0 w-full">
+      <h2 className="text-lg font-bold mb-2">Playlist</h2>
       {songs.map((song) => (
         <PlayListItem
           key={song.id}
