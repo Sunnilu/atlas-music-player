@@ -9,8 +9,9 @@ export default function MusicPlayer() {
     id: 1,
     title: 'Painted in Blue',
     artist: 'Soul Canvas',
-    duration: '5:55'
+    duration: '5:55',
   });
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(70);
 
@@ -24,7 +25,7 @@ export default function MusicPlayer() {
     { id: 7, title: 'Electric Fever', artist: 'Neon Jungle', duration: '8:41' },
     { id: 8, title: 'Edge of the Abyss', artist: 'Steel Horizon', duration: '2:27' },
     { id: 9, title: 'Golden Haze', artist: 'Velvet Waves', duration: '3:15' },
-    { id: 10, title: 'Shatter the Silence', artist: 'Thunderclap Echo', duration: '8:22' }
+    { id: 10, title: 'Shatter the Silence', artist: 'Thunderclap Echo', duration: '8:22' },
   ];
 
   const handlePlay = () => setIsPlaying(!isPlaying);
