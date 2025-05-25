@@ -37,19 +37,23 @@ export default function MusicPlayer() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900">
-      <main className="mx-auto w-full max-w-[456px] md:max-w-[896px] h-auto md:h-[640px] md:mt-[-637px] p-4 bg-white rounded-xl shadow-custom flex flex-col md:flex-row md:space-x-6">
-        <CurrentlyPlaying
-          song={currentSong}
-          isPlaying={isPlaying}
-          onPlay={handlePlay}
-          volume={volume}
-          onVolumeChange={handleVolume}
-        />
-        <Playlist
-          songs={playlist}
-          selectedSongId={currentSong?.id}
-          onSelectSong={handleSelectSong}
-        />
+      <main className="mx-auto w-full max-w-[896px] h-auto md:h-[640px] bg-white rounded-xl shadow-custom flex flex-col md:flex-row overflow-hidden">
+        <div className="w-full md:w-1/2 p-4 flex flex-col justify-between">
+          <CurrentlyPlaying
+            song={currentSong}
+            isPlaying={isPlaying}
+            onPlay={handlePlay}
+            volume={volume}
+            onVolumeChange={handleVolume}
+          />
+        </div>
+        <div className="w-full md:w-1/2 p-4 overflow-y-auto">
+          <Playlist
+            songs={playlist}
+            selectedSongId={currentSong?.id}
+            onSelectSong={handleSelectSong}
+          />
+        </div>
       </main>
       <Footer />
     </div>
