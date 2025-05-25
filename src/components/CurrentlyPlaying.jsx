@@ -3,33 +3,40 @@ import React from 'react';
 
 const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) => {
   return (
-    <div className="flex flex-col items-center bg-gray-900 text-white p-4 rounded-lg w-full">
-      <div className="text-center mb-4">
-        {song ? (
-          <>
-            <p className="text-lg font-semibold">{song.title}</p>
-            <p className="text-sm text-gray-300">{song.artist}</p>
-          </>
-        ) : (
-          <p>No song selected</p>
-        )}
+    <div className="w-full md:w-1/2 flex flex-col items-center bg-white p-6 rounded-lg shadow-md">
+      <div className="w-full aspect-square bg-gray-200 flex items-center justify-center rounded-md mb-4">
+        <span className="text-gray-400">📷</span>
       </div>
 
-      <button
-        onClick={onPlay}
-        className="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600"
-      >
-        {isPlaying ? 'Pause' : 'Play'}
-      </button>
+      <div className="text-center">
+        <h3 className="text-lg font-bold text-gray-900">{song?.title || 'No Song Selected'}</h3>
+        <p className="text-sm text-gray-500">{song?.artist || ''}</p>
+      </div>
 
-      <input
-        type="range"
-        className="mt-4 w-full"
-        min={0}
-        max={100}
-        value={volume}
-        onChange={(e) => onVolumeChange(Number(e.target.value))}
-      />
+      <div className="flex items-center gap-4 mt-4">
+        <span className="text-sm text-gray-500">1x</span>
+        <button className="text-gray-500">⏮️</button>
+        <button
+          onClick={onPlay}
+          className="p-2 border-2 rounded-md text-2xl hover:bg-gray-100"
+        >
+          {isPlaying ? '⏸️' : '▶️'}
+        </button>
+        <button className="text-gray-500">⏭️</button>
+        <button className="text-gray-500">🔁</button>
+      </div>
+
+      <div className="flex items-center w-full mt-4 gap-2">
+        <span className="text-sm">🔊</span>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={volume}
+          onChange={(e) => onVolumeChange(Number(e.target.value))}
+          className="w-full"
+        />
+      </div>
     </div>
   );
 };
