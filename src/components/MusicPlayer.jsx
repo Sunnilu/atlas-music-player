@@ -36,24 +36,20 @@ export default function MusicPlayer() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900">
-      <main className="flex flex-col md:flex-row max-w-6xl mx-auto w-full p-4 md:space-x-6">
-      <div className="bg-red-500 text-white p-4 text-center mb-4">
-  Tailwind is working
-</div>
-
-        <CurrentlyPlaying
-          song={currentSong}
-          isPlaying={isPlaying}
-          onPlay={handlePlay}
-          volume={volume}
-          onVolumeChange={handleVolume}
-        />
-        <Playlist
-          songs={playlist}
-          selectedSongId={currentSong?.id}
-          onSelectSong={handleSelectSong}
-        />
-      </main>
+<main className="flex flex-col md:flex-row max-w-6xl mx-auto w-full p-4 md:space-x-6">
+  <CurrentlyPlaying
+    song={currentSong}
+    isPlaying={isPlaying}
+    onPlay={handlePlay}
+    volume={volume}
+    onVolumeChange={handleVolume}
+  />
+  <Playlist
+    songs={playlist}
+    selectedSongId={currentSong?.id}
+    onSelectSong={handleSelectSong}
+  />
+</main>
       <Footer />
     </div>
   );
