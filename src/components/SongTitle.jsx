@@ -1,9 +1,9 @@
-// src/components/SongTitle.jsx
-export default function SongTitle() {
+const SongTitle = ({ song }) => {
+  if (!song) return <p className="text-white">No song selected</p>;
   return (
-    <div className="text-center mb-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-2">Song Title</h2>
-      <p className="text-gray-600">Artist Name</p>
+    <div className="text-center text-white">
+      <p className="font-bold">{song.title}</p>
+      <p className="text-sm text-gray-300">{song.artist}</p>
     </div>
   );
-}
+};
