@@ -1,7 +1,13 @@
 // src/components/Playlist.tsx
 import React from 'react';
 import PlayListItem from '@components/PlayListItem';
-import { Song } from '@types';
+interface Song {
+  id: number;
+  title: string;
+  artist: string;
+  duration: number;
+  // Add other fields as necessary
+}
 
 interface PlaylistProps {
   songs: Song[];

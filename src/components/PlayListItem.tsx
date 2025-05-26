@@ -1,6 +1,7 @@
 // src/components/PlayListItem.tsx
 import React from 'react';
-import { Song } from '@types';
+// Update the import path to the correct location of the Song type
+import { Song } from '../types'; // Adjust the path as needed
 
 interface PlayListItemProps {
   song: Song;

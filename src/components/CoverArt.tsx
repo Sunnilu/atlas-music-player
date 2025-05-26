@@ -1,6 +1,6 @@
 // src/components/CoverArt.tsx
 import React, { useState } from 'react';
-import { Song } from '../types/types';
+import { Song } from '../types';
 
 
 interface CoverArtProps {
