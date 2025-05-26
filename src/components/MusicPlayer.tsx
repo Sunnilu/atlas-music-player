@@ -1,8 +1,7 @@
-// src/components/MusicPlayer.tsx
 import { useEffect, useState } from 'react';
-import CurrentlyPlaying from './CurrentlyPlaying';
-import Playlist from './Playlist';
-import Footer from './Footer';
+import CurrentlyPlaying from '@components/CurrentlyPlaying';
+import Playlist from '@components/Playlist';
+import Footer from '@components/Footer';
 
 // Define a TypeScript interface for a Song
 export interface Song {
