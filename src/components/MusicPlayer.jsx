@@ -37,10 +37,6 @@ export default function MusicPlayer() {
 
   return (
 <>
-  <div className="bg-primary text-white p-4 text-center">
-    🎨 Custom Color Test Box
-  </div>
-
   <div className="flex flex-col min-h-screen bg-bg-dark text-text-light font-custom">
     <main className="mx-auto w-full max-w-[896px] h-auto md:h-[640px] bg-white/5 rounded-2xl shadow-custom flex flex-col md:flex-row overflow-hidden backdrop-blur-md border border-white/10">
       <div className="w-full md:w-1/2 p-4 flex flex-col justify-between">
