@@ -1,8 +1,15 @@
-// src/components/Playlist.jsx
+// src/components/Playlist.tsx
 import React from 'react';
 import PlayListItem from './PlayListItem';
+import { Song } from '../types';
 
-const Playlist = ({ songs, selectedSongId, onSelectSong }) => {
+interface PlaylistProps {
+  songs: Song[];
+  selectedSongId: number | undefined;
+  onSelectSong: (song: Song) => void;
+}
+
+const Playlist: React.FC<PlaylistProps> = ({ songs, selectedSongId, onSelectSong }) => {
   return (
     <div className="w-full h-full font-custom text-gray-900 dark:text-text-light">
       <h2 className="text-xl font-semibold text-primary dark:text-text-light px-2 pb-2">
@@ -23,4 +30,3 @@ const Playlist = ({ songs, selectedSongId, onSelectSong }) => {
 };
 
 export default Playlist;
-
