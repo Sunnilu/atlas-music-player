@@ -1,6 +1,6 @@
 // src/components/PlayListItem.tsx
 import React from 'react';
-import { Song } from '../types';
+import { Song } from '@types';
 
 interface PlayListItemProps {
   song: Song;
