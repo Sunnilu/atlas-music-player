@@ -1,36 +1,40 @@
-// src/components/MusicPlayer.jsx
-import { useState } from 'react';
+// src/components/MusicPlayer.tsx
+import { useEffect, useState } from 'react';
 import CurrentlyPlaying from './CurrentlyPlaying';
 import Playlist from './Playlist';
 import Footer from './Footer';
 
+// Define a TypeScript interface for a Song
+export interface Song {
+  id: number;
+  title: string;
+  artist: string;
+  duration: string;
+  // Add more fields from the API here if needed (e.g., url, albumArt, etc.)
+}
+
 export default function MusicPlayer() {
-  const [currentSong, setCurrentSong] = useState({
-    id: 1,
-    title: 'Painted in Blue',
-    artist: 'Soul Canvas',
-    duration: '5:55',
-  });
+  const [currentSong, setCurrentSong] = useState<Song | null>(null);
+  const [playlist, setPlaylist] = useState<Song[]>([]);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(70);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
+  const [shuffle, setShuffle] = useState<boolean>(false);
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(70);
-
-  const playlist = [
-    { id: 1, title: 'Painted in Blue', artist: 'Soul Canvas', duration: '5:55' },
-    { id: 2, title: 'Tidal Drift', artist: 'Echoes of the Sea', duration: '8:02' },
-    { id: 3, title: 'Fading Shadows', artist: 'The Emberlight', duration: '3:01' },
-    { id: 4, title: 'Cosmic Drift', artist: 'Solar Flare', duration: '5:01' },
-    { id: 5, title: 'Urban Serenade', artist: 'Midnight Groove', duration: '4:54' },
-    { id: 6, title: 'Whispers in the Wind', artist: 'Rust & Ruin', duration: '6:13' },
-    { id: 7, title: 'Electric Fever', artist: 'Neon Jungle', duration: '8:41' },
-    { id: 8, title: 'Edge of the Abyss', artist: 'Steel Horizon', duration: '2:27' },
-    { id: 9, title: 'Golden Haze', artist: 'Velvet Waves', duration: '3:15' },
-    { id: 10, title: 'Shatter the Silence', artist: 'Thunderclap Echo', duration: '8:22' },
-  ];
+  // Fetch playlist data from API on mount
+  useEffect(() => {
+    fetch('http://localhost:3000/api/playlist') // Adjust this to your actual API endpoint
+      .then(res => res.json())
+      .then(data => {
+        setPlaylist(data);
+        if (data.length > 0) setCurrentSong(data[0]);
+      })
+      .catch(console.error);
+  }, []);
 
   const handlePlay = () => setIsPlaying(!isPlaying);
-  const handleVolume = (v) => setVolume(v);
-  const handleSelectSong = (song) => {
+  const handleVolume = (v: number) => setVolume(v);
+  const handleSelectSong = (song: Song) => {
     setCurrentSong(song);
     setIsPlaying(true);
   };
@@ -59,3 +63,4 @@ export default function MusicPlayer() {
     </div>
   );
 }
+
