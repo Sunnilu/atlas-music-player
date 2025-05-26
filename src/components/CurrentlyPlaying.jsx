@@ -3,30 +3,30 @@ import React from 'react';
 
 const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) => {
   return (
-    <div className="w-full md:w-1/2 flex flex-col items-center bg-white p-6 rounded-lg shadow-md">
-      <div className="w-full aspect-square bg-gray-200 flex items-center justify-center rounded-md mb-4">
-        <span className="text-gray-400">📷</span>
+    <div className="flex flex-col items-center bg-bg-dark text-text-light p-6 rounded-2xl shadow-custom w-full h-full font-custom transition-all">
+      <div className="w-full aspect-square bg-surface flex items-center justify-center rounded-xl mb-4">
+        <span className="text-4xl">🎵</span>
       </div>
 
-      <div className="text-center">
-        <h3 className="text-lg font-bold text-gray-900">{song?.title || 'No Song Selected'}</h3>
-        <p className="text-sm text-gray-500">{song?.artist || ''}</p>
+      <div className="text-center mb-4">
+        <h3 className="text-xl font-bold">{song?.title || 'No Song Selected'}</h3>
+        <p className="text-sm text-gray-400">{song?.artist || ''}</p>
       </div>
 
-      <div className="flex items-center gap-4 mt-4">
-        <span className="text-sm text-gray-500">1x</span>
-        <button className="text-gray-500">⏮️</button>
+      <div className="flex items-center gap-4 mb-4">
+        <span className="text-sm text-gray-400">1x</span>
+        <button className="text-xl hover:text-accent transition-colors">⏮️</button>
         <button
           onClick={onPlay}
-          className="p-2 border-2 rounded-md text-2xl hover:bg-gray-100"
+          className="text-xl bg-primary hover:bg-accent text-white px-4 py-2 rounded-xl shadow-md transition"
         >
           {isPlaying ? '⏸️' : '▶️'}
         </button>
-        <button className="text-gray-500">⏭️</button>
-        <button className="text-gray-500">🔁</button>
+        <button className="text-xl hover:text-accent transition-colors">⏭️</button>
+        <button className="text-xl hover:text-accent transition-colors">🔁</button>
       </div>
 
-      <div className="flex items-center w-full mt-4 gap-2">
+      <div className="flex items-center w-full gap-2">
         <span className="text-sm">🔊</span>
         <input
           type="range"
@@ -34,7 +34,7 @@ const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) =
           max="100"
           value={volume}
           onChange={(e) => onVolumeChange(Number(e.target.value))}
-          className="w-full"
+          className="w-full accent-primary"
         />
       </div>
     </div>
@@ -42,3 +42,4 @@ const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) =
 };
 
 export default CurrentlyPlaying;
+
