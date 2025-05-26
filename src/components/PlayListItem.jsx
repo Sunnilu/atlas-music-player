@@ -1,7 +1,14 @@
-// src/components/PlayListItem.jsx
+// src/components/PlayListItem.tsx
 import React from 'react';
+import { Song } from '../types';
 
-const PlayListItem = ({ song, isSelected, onClick }) => {
+interface PlayListItemProps {
+  song: Song;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+const PlayListItem: React.FC<PlayListItemProps> = ({ song, isSelected, onClick }) => {
   return (
     <div
       onClick={onClick}
