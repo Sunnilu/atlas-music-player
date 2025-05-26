@@ -5,16 +5,18 @@ const PlayListItem = ({ song, isSelected, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`px-4 py-2 cursor-pointer ${
-        isSelected ? 'bg-blue-50 text-blue-900 font-semibold' : 'hover:bg-gray-50'
+      className={`cursor-pointer px-4 py-3 rounded-lg transition-all ${
+        isSelected
+          ? 'bg-primary text-white font-semibold shadow-md'
+          : 'hover:bg-accent hover:text-white'
       }`}
     >
       <div className="flex justify-between items-center">
         <div>
-          <p className="text-sm font-medium">{song.title}</p>
-          <p className="text-xs text-gray-500">{song.artist}</p>
+          <p className="text-sm">{song.title}</p>
+          <p className="text-xs opacity-80">{song.artist}</p>
         </div>
-        <span className="text-xs text-gray-500">{song.duration}</span>
+        <span className="text-xs">{song.duration}</span>
       </div>
     </div>
   );
