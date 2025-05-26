@@ -25,6 +25,9 @@ const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) =
         <button className="text-xl hover:text-accent transition-colors">⏭️</button>
         <button className="text-xl hover:text-accent transition-colors">🔁</button>
       </div>
+      <div className="bg-white text-gray-900 dark:bg-bg-dark dark:text-text-light">
+  ...
+</div>
 
       <div className="flex items-center w-full gap-2">
         <span className="text-sm">🔊</span>
