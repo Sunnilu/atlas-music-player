@@ -33,17 +33,41 @@ export default function MusicPlayer() {
 
   const handlePlay = () => setIsPlaying(!isPlaying);
   const handleVolume = (v: number) => setVolume(v);
+  const handleSpeedChange = () => {
+    setPlaybackSpeed((prev) => (prev === 2 ? 0.5 : prev === 1 ? 2 : 1));
+  };
+  const handleToggleShuffle = () => {
+    setShuffle((prev) => !prev);
+  };
+
   const handleSelectSong = (song: Song) => {
     setCurrentSong(song);
     setIsPlaying(true);
   };
 
-  const handleSpeedChange = () => {
-    setPlaybackSpeed((prev) => (prev === 2 ? 0.5 : prev === 1 ? 2 : 1));
+  const handlePrevious = () => {
+    if (!currentSong) return;
+    const currentIndex = playlist.findIndex((s) => s.id === currentSong.id);
+    if (currentIndex > 0) {
+      const previousSong = playlist[currentIndex - 1];
+      setCurrentSong(previousSong);
+    }
   };
 
-  const handleToggleShuffle = () => {
-    setShuffle((prev) => !prev);
+  const handleNext = () => {
+    if (!currentSong || playlist.length === 0) return;
+
+    if (shuffle) {
+      const randomIndex = Math.floor(Math.random() * playlist.length);
+      setCurrentSong(playlist[randomIndex]);
+      return;
+    }
+
+    const currentIndex = playlist.findIndex((s) => s.id === currentSong.id);
+    if (currentIndex < playlist.length - 1) {
+      const nextSong = playlist[currentIndex + 1];
+      setCurrentSong(nextSong);
+    }
   };
 
   return (
@@ -60,6 +84,8 @@ export default function MusicPlayer() {
             onSpeedChange={handleSpeedChange}
             shuffle={shuffle}
             onToggleShuffle={handleToggleShuffle}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
           />
         </div>
         <div className="w-full md:w-1/2 p-4 overflow-y-auto">
