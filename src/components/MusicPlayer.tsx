@@ -13,7 +13,7 @@ export default function MusicPlayer() {
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
   const [shuffle, setShuffle] = useState<boolean>(false);
 
-  // Fetch playlist data from API on mount
+  // Fetch playlist data from the server
   useEffect(() => {
     fetch('http://localhost:3000/playlist')
 
