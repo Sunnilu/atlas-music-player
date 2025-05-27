@@ -16,11 +16,11 @@ export default function MusicPlayer() {
   // Fetch playlist data from the server
   useEffect(() => {
     fetch('http://localhost:3000/playlist')
-
       .then(res => res.json())
       .then(data => {
         const transformedData = data.map((song: any) => ({
           ...song,
+          id: Number(song.id),
           duration: String(song.duration),
           image: song.image || '',
         })) as Song[];
