@@ -20,9 +20,10 @@ export default function MusicPlayer() {
       .then(data => {
         const transformedData = data.map((song: any) => ({
           ...song,
-          duration: Number(song.duration),
-          image: song.image || '', // Ensure 'image' property is included
+          duration: String(song.duration),
+          image: song.image || '',
         })) as Song[];
+        console.log('🎵 Transformed Playlist:', transformedData);
         setPlaylist(transformedData);
         if (transformedData.length > 0) setCurrentSong(transformedData[0]);
       })
