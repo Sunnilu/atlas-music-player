@@ -9,7 +9,10 @@ interface CurrentlyPlayingProps {
   onPlay: () => void;
   volume: number;
   onVolumeChange: (v: number) => void;
+  playbackSpeed: number;
+  onSpeedChange: () => void;
 }
+
 
 const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
   song,
