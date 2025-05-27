@@ -1,16 +1,9 @@
+// src/components/MusicPlayer.tsx
 import { useEffect, useState } from 'react';
 import CurrentlyPlaying from '@components/CurrentlyPlaying';
 import Playlist from '@components/Playlist';
 import Footer from '@components/Footer';
-
-// Define a TypeScript interface for a Song
-export interface Song {
-  id: number;
-  title: string;
-  artist: string;
-  duration: string;
-  // Add more fields from the API here if needed (e.g., url, albumArt, etc.)
-}
+import { Song } from '@types';
 
 export default function MusicPlayer() {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
@@ -22,11 +15,15 @@ export default function MusicPlayer() {
 
   // Fetch playlist data from API on mount
   useEffect(() => {
-    fetch('http://localhost:3000/api/playlist') // Adjust this to your actual API endpoint
+    fetch('http://localhost:3000/api/playlist')
       .then(res => res.json())
       .then(data => {
-        setPlaylist(data);
-        if (data.length > 0) setCurrentSong(data[0]);
+        const transformedData = data.map((song: Song) => ({
+          ...song,
+          duration: Number(song.duration),
+        }));
+        setPlaylist(transformedData);
+        if (transformedData.length > 0) setCurrentSong(transformedData[0]);
       })
       .catch(console.error);
   }, []);
