@@ -1,4 +1,3 @@
-// src/components/CurrentlyPlaying.tsx
 import React from 'react';
 import { Song } from '@types';
 import CoverArt from '@components/CoverArt';
@@ -13,39 +12,57 @@ interface CurrentlyPlayingProps {
   onSpeedChange: () => void;
 }
 
-
 const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
   song,
   isPlaying,
   onPlay,
   volume,
   onVolumeChange,
+  playbackSpeed,
+  onSpeedChange,
 }) => {
   if (!song) return null;
 
   return (
     <div className="flex flex-col items-center bg-bg-dark text-text-light p-6 rounded-2xl shadow-custom w-full h-full font-custom transition-all">
-      {/* ✅ Use CoverArt Component */}
+      {/* ✅ Album Cover */}
       <CoverArt song={song} />
 
+      {/* ✅ Song Title + Artist */}
       <div className="text-center mb-4">
         <h3 className="text-xl font-bold">{song.title}</h3>
         <p className="text-sm text-gray-400">{song.artist}</p>
       </div>
 
+      {/* ✅ Playback Controls */}
       <div className="flex items-center gap-4 mb-4">
-        <span className="text-sm text-gray-400">1x</span>
+        {/* Speed Button */}
+        <button
+          onClick={onSpeedChange}
+          className="text-sm px-2 py-1 bg-surface text-white rounded-md hover:bg-accent transition"
+        >
+          {playbackSpeed}x
+        </button>
+
+        {/* ⏮️ Previous */}
         <button className="text-xl hover:text-accent transition-colors">⏮️</button>
+
+        {/* ▶️ Play / ⏸️ Pause */}
         <button
           onClick={onPlay}
           className="text-xl bg-primary hover:bg-accent text-white px-4 py-2 rounded-xl shadow-md transition"
         >
           {isPlaying ? '⏸️' : '▶️'}
         </button>
+
+        {/* ⏭️ Next */}
         <button className="text-xl hover:text-accent transition-colors">⏭️</button>
+
+        {/* 🔁 Repeat */}
         <button className="text-xl hover:text-accent transition-colors">🔁</button>
       </div>
 
+      {/* ✅ Volume Slider */}
       <div className="flex items-center w-full gap-2">
         <span className="text-sm">🔊</span>
         <input
