@@ -1,3 +1,4 @@
+// src/components/CurrentlyPlaying.tsx
 import React from 'react';
 import { Song } from '@types';
 import CoverArt from '@components/CoverArt';
@@ -10,6 +11,8 @@ interface CurrentlyPlayingProps {
   onVolumeChange: (v: number) => void;
   playbackSpeed: number;
   onSpeedChange: () => void;
+  shuffle: boolean;
+  onToggleShuffle: () => void;
 }
 
 const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
@@ -20,6 +23,8 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
   onVolumeChange,
   playbackSpeed,
   onSpeedChange,
+  shuffle,
+  onToggleShuffle,
 }) => {
   if (!song) return null;
 
@@ -58,8 +63,15 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
         {/* ⏭️ Next */}
         <button className="text-xl hover:text-accent transition-colors">⏭️</button>
 
-        {/* 🔁 Repeat */}
-        <button className="text-xl hover:text-accent transition-colors">🔁</button>
+        {/* 🔀 Shuffle */}
+        <button
+          onClick={onToggleShuffle}
+          className={`text-xl transition-colors ${
+            shuffle ? 'text-accent' : 'hover:text-accent'
+          }`}
+        >
+          🔀
+        </button>
       </div>
 
       {/* ✅ Volume Slider */}
