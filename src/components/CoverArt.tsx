@@ -1,32 +1,31 @@
 // src/components/CoverArt.tsx
 import React, { useState } from 'react';
-import { Song } from '../types';
-
+import { Song } from '@types';
 
 interface CoverArtProps {
   song: Song | null;
 }
 
 const CoverArt: React.FC<CoverArtProps> = ({ song }) => {
-  const [showLyrics, setShowLyrics] = useState(false);
+  const [hover, setHover] = useState(false);
 
   if (!song) return null;
 
   return (
     <div
-      className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md"
-      onMouseEnter={() => setShowLyrics(true)}
-      onMouseLeave={() => setShowLyrics(false)}
+      className="relative w-full aspect-square bg-surface rounded-xl overflow-hidden shadow-custom"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
       <img
-        src={song.image}
-        alt={`${song.title} cover`}
+        src={song.image || '/placeholder.jpg'}
+        alt={song.title}
         className="w-full h-full object-cover"
       />
-
-      {showLyrics && song.lyrics && (
-        <div className="absolute inset-0 bg-black bg-opacity-80 text-white text-sm p-4 overflow-y-auto">
-          <p className="whitespace-pre-wrap">{song.lyrics}</p>
+      {hover && song.lyrics && (
+        <div className="absolute inset-0 bg-black/70 text-white p-4 text-sm overflow-y-auto">
+          <h4 className="font-semibold mb-2">Lyrics</h4>
+          <p>{song.lyrics}</p>
         </div>
       )}
     </div>
@@ -34,3 +33,4 @@ const CoverArt: React.FC<CoverArtProps> = ({ song }) => {
 };
 
 export default CoverArt;
+
