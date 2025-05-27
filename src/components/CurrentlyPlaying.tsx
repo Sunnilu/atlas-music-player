@@ -1,6 +1,7 @@
 // src/components/CurrentlyPlaying.tsx
 import React from 'react';
 import { Song } from '@types';
+import CoverArt from '@components/CoverArt';
 
 interface CurrentlyPlayingProps {
   song: Song | null;
@@ -21,13 +22,8 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
 
   return (
     <div className="flex flex-col items-center bg-bg-dark text-text-light p-6 rounded-2xl shadow-custom w-full h-full font-custom transition-all">
-      <div className="w-full aspect-square bg-surface flex items-center justify-center rounded-xl mb-4 overflow-hidden">
-        <img
-          src={song.image}
-          alt={song.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
+      {/* ✅ Use CoverArt Component */}
+      <CoverArt song={song} />
 
       <div className="text-center mb-4">
         <h3 className="text-xl font-bold">{song.title}</h3>
