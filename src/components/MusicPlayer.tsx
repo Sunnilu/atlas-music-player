@@ -15,7 +15,8 @@ export default function MusicPlayer() {
 
   // Fetch playlist data from API on mount
   useEffect(() => {
-    fetch('http://localhost:3000/api/playlist')
+    fetch('http://localhost:3000/playlist')
+
       .then(res => res.json())
       .then(data => {
         const transformedData = data.map((song: any) => ({
