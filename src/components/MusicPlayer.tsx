@@ -38,6 +38,14 @@ export default function MusicPlayer() {
     setIsPlaying(true);
   };
 
+  const handleSpeedChange = () => {
+    setPlaybackSpeed((prev) => (prev === 2 ? 0.5 : prev === 1 ? 2 : 1));
+  };
+
+  const handleToggleShuffle = () => {
+    setShuffle((prev) => !prev);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-bg-dark dark:text-text-light font-custom">
       <main className="mx-auto w-full max-w-[896px] h-auto md:h-[640px] bg-white/5 rounded-2xl shadow-custom flex flex-col md:flex-row overflow-hidden backdrop-blur-md border border-white/10">
@@ -48,6 +56,10 @@ export default function MusicPlayer() {
             onPlay={handlePlay}
             volume={volume}
             onVolumeChange={handleVolume}
+            playbackSpeed={playbackSpeed}
+            onSpeedChange={handleSpeedChange}
+            shuffle={shuffle}
+            onToggleShuffle={handleToggleShuffle}
           />
         </div>
         <div className="w-full md:w-1/2 p-4 overflow-y-auto">
