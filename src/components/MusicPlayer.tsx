@@ -18,10 +18,11 @@ export default function MusicPlayer() {
     fetch('http://localhost:3000/api/playlist')
       .then(res => res.json())
       .then(data => {
-        const transformedData = data.map((song: Song) => ({
+        const transformedData = data.map((song: any) => ({
           ...song,
           duration: Number(song.duration),
-        }));
+          image: song.image || '', // Ensure 'image' property is included
+        })) as Song[];
         setPlaylist(transformedData);
         if (transformedData.length > 0) setCurrentSong(transformedData[0]);
       })
