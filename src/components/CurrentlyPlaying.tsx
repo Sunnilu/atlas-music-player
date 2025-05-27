@@ -13,6 +13,8 @@ interface CurrentlyPlayingProps {
   onSpeedChange: () => void;
   shuffle: boolean;
   onToggleShuffle: () => void;
+  onPrevious: () => void;
+  onNext: () => void;
 }
 
 const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
@@ -25,6 +27,8 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
   onSpeedChange,
   shuffle,
   onToggleShuffle,
+  onPrevious,
+  onNext,
 }) => {
   if (!song) return null;
 
@@ -50,7 +54,12 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
         </button>
 
         {/* ⏮️ Previous */}
-        <button className="text-xl hover:text-accent transition-colors">⏮️</button>
+        <button
+          onClick={onPrevious}
+          className="text-xl hover:text-accent transition-colors"
+        >
+          ⏮️
+        </button>
 
         {/* ▶️ Play / ⏸️ Pause */}
         <button
@@ -61,9 +70,14 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
         </button>
 
         {/* ⏭️ Next */}
-        <button className="text-xl hover:text-accent transition-colors">⏭️</button>
+        <button
+          onClick={onNext}
+          className="text-xl hover:text-accent transition-colors"
+        >
+          ⏭️
+        </button>
 
-        {/* 🔀 Shuffle */}
+        {/* 🔁 Shuffle */}
         <button
           onClick={onToggleShuffle}
           className={`text-xl transition-colors ${
