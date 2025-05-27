@@ -1,4 +1,4 @@
-// src/components/CurrentlyPlaying.jsx
+// src/components/CurrentlyPlaying.tsx
 import React from 'react';
 
 const CurrentlyPlaying = ({ song, isPlaying, onPlay, volume, onVolumeChange }) => {
