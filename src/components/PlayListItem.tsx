@@ -1,8 +1,6 @@
 // src/components/PlayListItem.tsx
 import React from 'react';
-// Update the import path to the correct location of the Song type
-import { Song } from '../types'; // ✅ correct relative path
-
+import { Song } from '../types'; // plain relative import
 
 interface PlayListItemProps {
   song: Song;
@@ -10,23 +8,28 @@ interface PlayListItemProps {
   onClick: () => void;
 }
 
+const formatDuration = (duration: string): string => {
+  const parts = duration.split(':');
+  if (parts.length === 2) return duration;
+  if (parts.length === 1) return `0:${parts[0].padStart(2, '0')}`;
+  return '0:00';
+};
+
 const PlayListItem: React.FC<PlayListItemProps> = ({ song, isSelected, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`cursor-pointer px-4 py-3 rounded-lg transition-all ${
-        isSelected
-          ? 'bg-primary text-white font-semibold shadow-md'
-          : 'hover:bg-accent hover:text-white'
+      className={`flex items-center justify-between px-4 py-2 rounded-lg cursor-pointer transition-colors ${
+        isSelected ? 'bg-primary text-white' : 'bg-white dark:bg-bg-dark hover:bg-gray-100 dark:hover:bg-gray-800'
       }`}
     >
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="text-sm">{song.title}</p>
-          <p className="text-xs opacity-80">{song.artist}</p>
-        </div>
-        <span className="text-xs">{song.duration}</span>
+      <div>
+        <h4 className="text-sm font-medium">{song.title}</h4>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{song.artist}</p>
       </div>
+      <span className="text-xs text-gray-500 dark:text-gray-300">
+        {formatDuration(song.duration)}
+      </span>
     </div>
   );
 };
