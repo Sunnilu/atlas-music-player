@@ -4,11 +4,15 @@ import CurrentlyPlaying from '@components/CurrentlyPlaying';
 import Playlist from '@components/Playlist';
 import Footer from '@components/Footer';
 import LoadingSkeleton from '@components/LoadingSkeleton';
+import AudioPlayer from '@components/AudioPlayer'; // ✅ NEW
 import { Song } from '@types';
 
 export default function MusicPlayer() {
   const [playlist, setPlaylist] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false); // ✅ NEW
+  const [volume, setVolume] = useState(50); // ✅ NEW
+  const [playbackSpeed, setPlaybackSpeed] = useState(1); // ✅ NEW
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -33,7 +37,13 @@ export default function MusicPlayer() {
 
   const handleSelectSong = (song: Song) => {
     setCurrentSong(song);
+    setIsPlaying(true);
   };
+
+  const handlePlay = () => setIsPlaying(!isPlaying);
+  const handleVolumeChange = (v: number) => setVolume(v);
+  const handleSpeedChange = () =>
+    setPlaybackSpeed((prev) => (prev === 2 ? 0.5 : prev === 1 ? 2 : 1));
 
   return (
     <div className="flex flex-col min-h-screen font-custom bg-white dark:bg-bg-dark text-gray-900 dark:text-text-light">
@@ -42,19 +52,19 @@ export default function MusicPlayer() {
           {isLoading ? (
             <LoadingSkeleton />
           ) : (
-            <CurrentlyPlaying song={currentSong} isPlaying={false} onPlay={function (): void {
-                throw new Error('Function not implemented.');
-              } } volume={0} onVolumeChange={function (v: number): void {
-                throw new Error('Function not implemented.');
-              } } playbackSpeed={0} onSpeedChange={function (): void {
-                throw new Error('Function not implemented.');
-              } } shuffle={false} onToggleShuffle={function (): void {
-                throw new Error('Function not implemented.');
-              } } onPrevious={function (): void {
-                throw new Error('Function not implemented.');
-              } } onNext={function (): void {
-                throw new Error('Function not implemented.');
-              } } />
+            <CurrentlyPlaying
+              song={currentSong}
+              isPlaying={isPlaying}
+              onPlay={handlePlay}
+              volume={volume}
+              onVolumeChange={handleVolumeChange}
+              playbackSpeed={playbackSpeed}
+              onSpeedChange={handleSpeedChange}
+              shuffle={false}
+              onToggleShuffle={() => {}}
+              onPrevious={() => {}}
+              onNext={() => {}}
+            />
           )}
         </div>
         <div className="w-full md:w-1/2 p-4 overflow-y-auto">
@@ -65,6 +75,15 @@ export default function MusicPlayer() {
           />
         </div>
       </main>
+
+      {/* ✅ Audio Element */}
+      <AudioPlayer
+        song={currentSong}
+        isPlaying={isPlaying}
+        volume={volume}
+        speed={playbackSpeed}
+      />
+
       <Footer />
     </div>
   );
