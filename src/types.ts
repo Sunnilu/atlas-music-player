@@ -6,6 +6,7 @@ export interface Song {
   artist: string;
   duration: string;
   image: string;     // ✅ Required for album artwork
-  lyrics?: string;   // ✅ Optional: used for hover display
+  lyrics?: string; 
+  audio: string;  // ✅ Required for audio playback
 }
 export {};
