@@ -8,3 +8,4 @@ export interface Song {
   image: string;     // ✅ Required for album artwork
   lyrics?: string;   // ✅ Optional: used for hover display
 }
+export {};
