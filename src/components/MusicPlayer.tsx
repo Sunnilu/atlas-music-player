@@ -18,18 +18,20 @@ export default function MusicPlayer() {
     fetch('http://localhost:3000/playlist')
       .then(res => res.json())
       .then(data => {
+        console.log('🎧 Raw Data:', data); // 🔍 Debug line
         const transformedData = data.map((song: any) => ({
           ...song,
           id: Number(song.id),
           duration: String(song.duration),
           image: song.image || '',
         })) as Song[];
-        console.log('🎵 Transformed Playlist:', transformedData);
+        console.log('🎵 Transformed Playlist:', transformedData); // 🔍 Debug line
         setPlaylist(transformedData);
         if (transformedData.length > 0) setCurrentSong(transformedData[0]);
       })
       .catch(console.error);
   }, []);
+  
 
   const handlePlay = () => setIsPlaying(!isPlaying);
   const handleVolume = (v: number) => setVolume(v);
