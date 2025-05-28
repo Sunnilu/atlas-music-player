@@ -76,6 +76,10 @@ export default function MusicPlayer() {
     <div className="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-bg-dark dark:text-text-light font-custom">
       <main className="mx-auto w-full max-w-[896px] h-auto md:h-[640px] bg-white/5 rounded-2xl shadow-custom flex flex-col md:flex-row overflow-hidden backdrop-blur-md border border-white/10">
         <div className="w-full md:w-1/2 p-4 flex flex-col justify-between">
+        <p className="text-sm text-center text-gray-500">
+  Songs loaded: {playlist.length}
+</p>
+
           <CurrentlyPlaying
             song={currentSong}
             isPlaying={isPlaying}
