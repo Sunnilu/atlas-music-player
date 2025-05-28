@@ -1,96 +1,61 @@
+// src/components/MusicPlayer.tsx
 import { useEffect, useState } from 'react';
 import CurrentlyPlaying from '@components/CurrentlyPlaying';
 import Playlist from '@components/Playlist';
 import Footer from '@components/Footer';
+import LoadingSkeleton from '@components/LoadingSkeleton';
 import { Song } from '@types';
 
 export default function MusicPlayer() {
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [playlist, setPlaylist] = useState<Song[]>([]);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(70);
-  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
-  const [shuffle, setShuffle] = useState<boolean>(false);
+  const [currentSong, setCurrentSong] = useState<Song | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch playlist data from the server
   useEffect(() => {
-    fetch('http://localhost:3000/playlist')
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
+    fetch('/api/v1/playlist')
+      .then((res) => res.json())
       .then((data) => {
-        const transformedData = data.map((song: any) => ({
+        const songs: Song[] = data.map((song: any) => ({
           ...song,
           id: Number(song.id),
           duration: String(song.duration),
           image: song.image || '',
-        })) as Song[];
-        console.log('🎵 Transformed Playlist:', transformedData);
-        setPlaylist(transformedData);
-        if (transformedData.length > 0) setCurrentSong(transformedData[0]);
+        }));
+        setPlaylist(songs);
+        if (songs.length > 0) setCurrentSong(songs[0]);
+        setIsLoading(false);
       })
-      .catch((error) => {
-        console.error('Error fetching playlist:', error);
+      .catch((err) => {
+        console.error('Failed to load playlist:', err);
+        setIsLoading(false);
       });
   }, []);
 
-  const handlePlay = () => setIsPlaying(!isPlaying);
-  const handleVolume = (v: number) => setVolume(v);
-  const handleSpeedChange = () => {
-    setPlaybackSpeed((prev) => (prev === 2 ? 0.5 : prev === 1 ? 2 : 1));
-  };
-  const handleToggleShuffle = () => {
-    setShuffle((prev) => !prev);
-  };
   const handleSelectSong = (song: Song) => {
     setCurrentSong(song);
-    setIsPlaying(true);
-  };
-  const handlePrevious = () => {
-    if (!currentSong) return;
-    const currentIndex = playlist.findIndex((s) => s.id === currentSong.id);
-    if (currentIndex > 0) {
-      setCurrentSong(playlist[currentIndex - 1]);
-    }
-  };
-  const handleNext = () => {
-    if (!currentSong || playlist.length === 0) return;
-
-    if (shuffle) {
-      const randomIndex = Math.floor(Math.random() * playlist.length);
-      setCurrentSong(playlist[randomIndex]);
-    } else {
-      const currentIndex = playlist.findIndex((s) => s.id === currentSong.id);
-      if (currentIndex < playlist.length - 1) {
-        setCurrentSong(playlist[currentIndex + 1]);
-      }
-    }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-bg-dark dark:text-text-light font-custom">
+    <div className="flex flex-col min-h-screen font-custom bg-white dark:bg-bg-dark text-gray-900 dark:text-text-light">
       <main className="mx-auto w-full max-w-[896px] h-auto md:h-[640px] bg-white/5 rounded-2xl shadow-custom flex flex-col md:flex-row overflow-hidden backdrop-blur-md border border-white/10">
         <div className="w-full md:w-1/2 p-4 flex flex-col justify-between">
-          <p className="text-sm text-center text-gray-500 mb-2">
-            Songs loaded: {playlist.length}
-          </p>
-
-          <CurrentlyPlaying
-            song={currentSong}
-            isPlaying={isPlaying}
-            onPlay={handlePlay}
-            volume={volume}
-            onVolumeChange={handleVolume}
-            playbackSpeed={playbackSpeed}
-            onSpeedChange={handleSpeedChange}
-            shuffle={shuffle}
-            onToggleShuffle={handleToggleShuffle}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-          />
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : (
+            <CurrentlyPlaying song={currentSong} isPlaying={false} onPlay={function (): void {
+                throw new Error('Function not implemented.');
+              } } volume={0} onVolumeChange={function (v: number): void {
+                throw new Error('Function not implemented.');
+              } } playbackSpeed={0} onSpeedChange={function (): void {
+                throw new Error('Function not implemented.');
+              } } shuffle={false} onToggleShuffle={function (): void {
+                throw new Error('Function not implemented.');
+              } } onPrevious={function (): void {
+                throw new Error('Function not implemented.');
+              } } onNext={function (): void {
+                throw new Error('Function not implemented.');
+              } } />
+          )}
         </div>
         <div className="w-full md:w-1/2 p-4 overflow-y-auto">
           <Playlist
