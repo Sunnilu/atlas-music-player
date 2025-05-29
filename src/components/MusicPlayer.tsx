@@ -1,44 +1,45 @@
 // src/components/MusicPlayer.tsx
 import { useEffect, useState } from 'react';
 import CurrentlyPlaying from '@components/CurrentlyPlaying';
-import Playlist from '@components/Playlist';
 import Footer from '@components/Footer';
 import LoadingSkeleton from '@components/LoadingSkeleton';
-import AudioPlayer from '@components/AudioPlayer'; // adding new AudioPlayer component
+import AudioPlayer from '@components/AudioPlayer';
 import { Song } from '@types';
 
 export default function MusicPlayer() {
-  const [playlist, setPlaylist] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false); // added new isPlaying state
-  const [volume, setVolume] = useState(50); // added new volume state
-  const [playbackSpeed, setPlaybackSpeed] = useState(1); // added new playback speed state
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(50);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/v1/playlist')
-      .then((res) => res.json())
-      .then((data) => {
-        const songs: Song[] = data.map((song: any) => ({
-          ...song,
-          id: Number(song.id),
-          duration: String(song.duration),
-          image: song.image || '',
-        }));
-        setPlaylist(songs);
-        if (songs.length > 0) setCurrentSong(songs[0]);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error('Failed to load playlist:', err);
-        setIsLoading(false);
-      });
-  }, []);
+    const fetchSong = async () => {
+      try {
+        const res = await fetch('http://localhost:5173/api/v1/songs/cm3ixp4sy0thg0cmtdzukgg56');
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
 
-  const handleSelectSong = (song: Song) => {
-    setCurrentSong(song);
-    setIsPlaying(true);
-  };
+        const normalizedSong: Song = {
+          id: data.id,
+          title: data.title,
+          author: data.artist,
+          genre: data.genre,
+          duration: String(data.duration),
+          image: data.cover,
+          audio: data.song,
+        };
+
+        setCurrentSong(normalizedSong);
+      } catch (error) {
+        console.error('Failed to fetch song:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSong();
+  }, []);
 
   const handlePlay = () => setIsPlaying(!isPlaying);
   const handleVolumeChange = (v: number) => setVolume(v);
@@ -68,20 +69,15 @@ export default function MusicPlayer() {
           )}
         </div>
         <div className="w-full md:w-1/2 p-4 overflow-y-auto">
-          <Playlist
-            songs={playlist}
-            selectedSongId={currentSong?.id}
-            onSelectSong={handleSelectSong}
-          />
+          {/* Playlist removed since we're loading a single song */}
         </div>
       </main>
 
-      {/* Audio Element */}
       <AudioPlayer
         song={currentSong}
         isPlaying={isPlaying}
         volume={volume}
-        speed={playbackSpeed}
+        playbackSpeed={playbackSpeed}
       />
 
       <Footer />

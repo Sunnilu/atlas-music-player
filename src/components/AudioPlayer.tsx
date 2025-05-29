@@ -30,8 +30,16 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
     audio.src = song.audio;
 
+    const playAudio = async () => {
+      try {
+        await audio.play();
+      } catch (err) {
+        console.error('Error playing audio:', err);
+      }
+    };
+
     if (isPlaying) {
-      audio.play().catch(console.error);
+      playAudio();
     } else {
       audio.pause();
     }
@@ -51,7 +59,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }, [playbackSpeed]);
 
-  return <audio ref={audioRef} hidden />;
+  return (
+    <audio ref={audioRef} hidden preload="auto" />
+  );
 };
 
 export default AudioPlayer;
