@@ -1,12 +1,11 @@
 // src/types.ts
-
 export interface Song {
   id: number;
   title: string;
-  artist: string;
+  author: string;      // 🔁 renamed from `artist`
   duration: string;
-  image: string;     // ✅ Required for album artwork
-  lyrics?: string; 
-  audio: string;  // ✅ Required for audio playback
+  image: string;
+  lyrics?: string;
+  audio: string;
 }
 export {};
