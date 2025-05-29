@@ -1,6 +1,5 @@
-// src/components/AudioPlayer.tsx
 import React, { useEffect, useRef } from 'react';
-import { Song } from '../types'; // plain relative import
+import { Song } from '../types'; // Adjust the path if necessary
 
 interface AudioPlayerProps {
   song: Song | null;
@@ -9,9 +8,21 @@ interface AudioPlayerProps {
   playbackSpeed: number;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ song, isPlaying, volume, playbackSpeed }) => {
+/**
+ * AudioPlayer component controls audio playback based on props.
+ * - Adjusts volume and speed.
+ * - Plays or pauses based on `isPlaying`.
+ * - Changes source when song changes.
+ */
+const AudioPlayer: React.FC<AudioPlayerProps> = ({
+  song,
+  isPlaying,
+  volume,
+  playbackSpeed,
+}) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Handle song changes and play/pause logic
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -26,12 +37,14 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ song, isPlaying, volume, play
     }
   }, [song, isPlaying]);
 
+  // Adjust volume (0-100 scaled to 0.0-1.0)
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume / 100;
     }
   }, [volume]);
 
+  // Set playback speed
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.playbackRate = playbackSpeed;
