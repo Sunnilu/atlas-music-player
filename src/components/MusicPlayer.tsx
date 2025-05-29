@@ -4,15 +4,15 @@ import CurrentlyPlaying from '@components/CurrentlyPlaying';
 import Playlist from '@components/Playlist';
 import Footer from '@components/Footer';
 import LoadingSkeleton from '@components/LoadingSkeleton';
-import AudioPlayer from '@components/AudioPlayer'; // ✅ NEW
+import AudioPlayer from '@components/AudioPlayer'; // adding new AudioPlayer component
 import { Song } from '@types';
 
 export default function MusicPlayer() {
   const [playlist, setPlaylist] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false); // ✅ NEW
-  const [volume, setVolume] = useState(50); // ✅ NEW
-  const [playbackSpeed, setPlaybackSpeed] = useState(1); // ✅ NEW
+  const [isPlaying, setIsPlaying] = useState(false); // added new isPlaying state
+  const [volume, setVolume] = useState(50); // added new volume state
+  const [playbackSpeed, setPlaybackSpeed] = useState(1); // added new playback speed state
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
