@@ -76,7 +76,7 @@ export default function MusicPlayer() {
         </div>
       </main>
 
-      {/* ✅ Audio Element */}
+      {/* Audio Element */}
       <AudioPlayer
         song={currentSong}
         isPlaying={isPlaying}
