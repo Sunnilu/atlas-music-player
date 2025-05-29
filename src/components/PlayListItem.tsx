@@ -1,6 +1,6 @@
 // src/components/PlayListItem.tsx
 import React from 'react';
-import { Song } from '../types'; // plain relative import
+import { Song } from '../types';
 
 interface PlayListItemProps {
   song: Song;
@@ -25,7 +25,7 @@ const PlayListItem: React.FC<PlayListItemProps> = ({ song, isSelected, onClick }
     >
       <div>
         <h4 className="text-sm font-medium">{song.title}</h4>
-        <p className="text-xs text-gray-500 dark:text-gray-400">{song.artist}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{song.author}</p>
       </div>
       <span className="text-xs text-gray-500 dark:text-gray-300">
         {formatDuration(song.duration)}
