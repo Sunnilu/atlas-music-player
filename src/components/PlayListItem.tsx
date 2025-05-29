@@ -19,10 +19,12 @@ const PlayListItem: React.FC<PlayListItemProps> = ({ song, isSelected, onClick }
   return (
     <div
       onClick={onClick}
-      className={`flex items-center justify-between px-4 py-2 rounded-lg cursor-pointer transition-colors ${
-        isSelected ? 'bg-primary text-white' : 'bg-white dark:bg-bg-dark hover:bg-gray-100 dark:hover:bg-gray-800'
-      }`}
-    >
+    className={`flex items-center justify-between px-4 py-2 rounded-lg cursor-pointer transition-colors ${
+      isSelected
+        ? 'bg-blue-500 text-white'
+        : 'bg-white dark:bg-bg-dark hover:bg-gray-100 dark:hover:bg-gray-800'
+    }`}
+  >
       <div>
         <h4 className="text-sm font-medium">{song.title}</h4>
         <p className="text-xs text-gray-500 dark:text-gray-400">{song.author}</p>
