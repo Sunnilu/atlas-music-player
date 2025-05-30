@@ -23,7 +23,19 @@ export default function MusicPlayer() {
         const playlistResponse = await fetchPlaylist();
 
         if (playlistResponse.status === 'success') {
-          setPlaylist(playlistResponse.data || []);
+          const normalizedPlaylist = (playlistResponse.data || []).map((song: any) => ({
+            id: Number(song.id),
+            title: song.title,
+            author: song.author ?? song.artist ?? '',
+            artist: song.artist ?? song.author ?? '',
+            genre: song.genre,
+            duration: String(song.duration),
+            image: song.image ?? song.cover ?? '',
+            cover: song.cover ?? song.image ?? '',
+            audio: song.audio ?? song.url ?? '',
+          }));
+
+          setPlaylist(normalizedPlaylist);
 
           const songId = 'cm3ixp4sy0thg0cmtdzukgg56';
           const songResponse = await fetchSong(songId);
@@ -83,7 +95,10 @@ export default function MusicPlayer() {
                 className={`flex items-center justify-between px-4 py-2 rounded-lg cursor-pointer transition-colors ${
                   currentSong?.id === song.id ? 'bg-blue-100' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
-                onClick={() => setCurrentSong(song)}
+                onClick={() => {
+                  setCurrentSong(song);
+                  console.log('🎧 Selected song:', song);
+                }}
               >
                 <div>
                   <p className="font-semibold text-sm">{song.title}</p>
