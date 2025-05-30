@@ -22,6 +22,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     const audio = audioRef.current;
     if (!audio || !song?.audio) return;
 
+    console.log('🎵 Current song audio:', song.audio); // Log audio URL for debugging
+
     audio.src = song.audio;
     audio.load();
 
