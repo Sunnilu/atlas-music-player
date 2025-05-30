@@ -1,5 +1,5 @@
 // src/components/MusicPlayer.tsx
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CurrentlyPlaying from '@components/CurrentlyPlaying';
 import Footer from '@components/Footer';
 import LoadingSkeleton from '@components/LoadingSkeleton';
@@ -14,14 +14,15 @@ export default function MusicPlayer() {
   const [volume, setVolume] = useState(50);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [error, setError] = useState<string | null>(null);
+  
   const { fetchSong, fetchPlaylist } = useSongsApi();
 
   useEffect(() => {
     const initializePlayer = async () => {
       try {
         const playlistResponse = await fetchPlaylist();
-
+        
         if (playlistResponse.status === 'success') {
           const normalizedPlaylist = (playlistResponse.data || []).map((song: any) => ({
             id: Number(song.id),
@@ -34,12 +35,11 @@ export default function MusicPlayer() {
             cover: song.cover ?? song.image ?? '',
             audio: song.audio ?? song.url ?? '',
           }));
-
           setPlaylist(normalizedPlaylist);
-
+          
           const songId = 'cm3ixp4sy0thg0cmtdzukgg56';
           const songResponse = await fetchSong(songId);
-
+          
           if (songResponse.status === 'success' && songResponse.data) {
             setCurrentSong({
               ...songResponse.data,
@@ -49,8 +49,10 @@ export default function MusicPlayer() {
             });
           }
         }
-      } catch (error) {
-        console.error('Failed to initialize player:', error);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'An unknown error occurred';
+        setError(message);
+        console.error('Failed to initialize player:', err);
       } finally {
         setIsLoading(false);
       }
@@ -61,8 +63,23 @@ export default function MusicPlayer() {
 
   const handlePlay = () => setIsPlaying(!isPlaying);
   const handleVolumeChange = (v: number) => setVolume(v);
-  const handleSpeedChange = () =>
+  const handleSpeedChange = () => 
     setPlaybackSpeed((prev) => (prev === 2 ? 0.5 : prev === 1 ? 2 : 1));
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-bg-dark text-gray-900 dark:text-text-light">
+        <h2 className="text-2xl font-semibold text-red-500 mb-4">Error Loading Music Player</h2>
+        <p className="text-gray-600 dark:text-gray-300">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+        >
+          Reload Player
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen font-custom bg-white dark:bg-bg-dark text-gray-900 dark:text-text-light">
@@ -112,14 +129,12 @@ export default function MusicPlayer() {
           </div>
         </div>
       </main>
-
       <AudioPlayer
         song={currentSong}
         isPlaying={isPlaying}
         volume={volume}
         playbackSpeed={playbackSpeed}
       />
-
       <Footer />
     </div>
   );
