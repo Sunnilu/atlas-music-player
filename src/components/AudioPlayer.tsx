@@ -54,18 +54,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }, [playbackSpeed]);
 
-  return (
-    <div className="flex flex-col items-center">
-      {song?.image && (
-        <img
-          src={song.image}
-          alt={song.title}
-          className="w-32 h-32 object-cover rounded-xl mb-2"
-        />
-      )}
-      <audio ref={audioRef} hidden controls preload="auto" />
-    </div>
-  );
+  return <audio ref={audioRef} hidden controls preload="auto" />;
 };
 
 export default AudioPlayer;
