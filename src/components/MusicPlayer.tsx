@@ -7,6 +7,7 @@ import AudioPlayer from '@components/AudioPlayer';
 import { Song } from '@types';
 
 export default function MusicPlayer() {
+  const [playlist, setPlaylist] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(50);
@@ -29,6 +30,22 @@ export default function MusicPlayer() {
           image: data.cover,
           audio: data.song,
         };
+
+        const playlistRes = await fetch('http://localhost:5173/api/v1/playlist');
+const playlistData = await playlistRes.json();
+
+const songs: Song[] = playlistData.map((song: any) => ({
+  id: Number(song.id),
+  title: song.title,
+  author: song.artist,
+  genre: song.genre,
+  duration: String(song.duration),
+  image: song.cover,
+  audio: song.song,
+}));
+
+setPlaylist(songs);
+
 
         setCurrentSong(normalizedSong);
       } catch (error) {
