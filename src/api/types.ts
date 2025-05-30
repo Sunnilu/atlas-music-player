@@ -1,5 +1,9 @@
 // src/api/types.ts
 export interface Song {
+  url: any;
+  audio: any;
+  image: string;
+  author: string;
   id: number;
   title: string;
   artist: string;
