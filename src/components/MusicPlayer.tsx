@@ -1,14 +1,12 @@
 // src/components/MusicPlayer.tsx
 import { useEffect, useState } from 'react';
-import CurrentlyPlaying from './CurrentlyPlaying';
-import Playlist from './Playlist';
-import Footer from './Footer';
-import LoadingSkeleton from './LoadingSkeleton';
-import AudioPlayer from './AudioPlayer';
-import { Song } from '../types';
+import CurrentlyPlaying from '@components/CurrentlyPlaying';
+import Footer from '@components/Footer';
+import LoadingSkeleton from '@components/LoadingSkeleton';
+import AudioPlayer from '@components/AudioPlayer';
+import { Song } from '@types';
 
 export default function MusicPlayer() {
-  const [playlist, setPlaylist] = useState<Song[]>([]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(50);
@@ -16,48 +14,32 @@ export default function MusicPlayer() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchSong = async () => {
       try {
-        // Fetch full playlist
-        const playlistRes = await fetch('http://localhost:5173/api/v1/playlist');
-        const playlistData = await playlistRes.json();
-        console.log('✅ Raw playlist:', playlistData);
+        const res = await fetch('http://localhost:5173/api/v1/songs/cm3ixp4sy0thg0cmtdzukgg56');
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
 
-        const songs: Song[] = playlistData.map((song: any) => ({
-          id: Number(song.id),
-          title: song.title,
-          author: song.artist,
-          genre: song.genre,
-          duration: String(song.duration),
-          image: song.cover,
-          audio: song.song,
-        }));
+        const normalizedSong: Song = {
+          id: data.id,
+          title: data.title,
+          author: data.artist,
+          genre: data.genre,
+          duration: String(data.duration),
+          image: data.cover,
+          audio: data.song,
+        };
 
-        setPlaylist(songs);
-
-        // Try to find the featured song in the playlist
-        const featuredId = 'cm3ixp4sy0thg0cmtdzukgg56';
-        const featuredSong = songs.find((song) => String(song.id) === featuredId);
-
-        if (featuredSong) {
-          setCurrentSong(featuredSong);
-        } else if (songs.length > 0) {
-          setCurrentSong(songs[0]);
-        }
+        setCurrentSong(normalizedSong);
       } catch (error) {
-        console.error('❌ Failed to fetch playlist or song:', error);
+        console.error('Failed to fetch song:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchData();
+    fetchSong();
   }, []);
-
-  const handleSelectSong = (song: Song) => {
-    setCurrentSong(song);
-    setIsPlaying(true);
-  };
 
   const handlePlay = () => setIsPlaying(!isPlaying);
   const handleVolumeChange = (v: number) => setVolume(v);
@@ -87,11 +69,7 @@ export default function MusicPlayer() {
           )}
         </div>
         <div className="w-full md:w-1/2 p-4 overflow-y-auto">
-          <Playlist
-            songs={playlist}
-            selectedSongId={currentSong?.id}
-            onSelectSong={handleSelectSong}
-          />
+          {/* Playlist removed since we're loading a single song */}
         </div>
       </main>
 
@@ -106,3 +84,4 @@ export default function MusicPlayer() {
     </div>
   );
 }
+
