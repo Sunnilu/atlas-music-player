@@ -1,7 +1,7 @@
 // src/components/CurrentlyPlaying.tsx
 import React from 'react';
-import { Song } from '@types';
-import CoverArt from '@components/CoverArt';
+import { Song } from '../types'; // Fixed relative import
+import CoverArt from './CoverArt'; // ✅ Fixed import to relative path
 
 interface CurrentlyPlayingProps {
   song: Song | null;
@@ -40,50 +40,20 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
       {/* ✅ Song Title + Artist */}
       <div className="text-center mb-4">
         <h3 className="text-xl font-bold">{song.title}</h3>
-        <p className="text-sm text-gray-400">{song.artist}</p>
+        <p className="text-sm text-gray-400">{song.author}</p>
       </div>
 
       {/* ✅ Playback Controls */}
       <div className="flex items-center gap-4 mb-4">
-        {/* Speed Button */}
-        <button
-          onClick={onSpeedChange}
-          className="text-sm px-2 py-1 bg-surface text-white rounded-md hover:bg-accent transition"
-        >
+        <button onClick={onSpeedChange} className="text-sm px-2 py-1 bg-surface text-white rounded-md hover:bg-accent transition">
           {playbackSpeed}x
         </button>
-
-        {/* ⏮️ Previous */}
-        <button
-          onClick={onPrevious}
-          className="text-xl hover:text-accent transition-colors"
-        >
-          ⏮️
-        </button>
-
-        {/* ▶️ Play / ⏸️ Pause */}
-        <button
-          onClick={onPlay}
-          className="text-xl bg-primary hover:bg-accent text-white px-4 py-2 rounded-xl shadow-md transition"
-        >
+        <button onClick={onPrevious} className="text-xl hover:text-accent transition-colors">⏮️</button>
+        <button onClick={onPlay} className="text-xl bg-primary hover:bg-accent text-white px-4 py-2 rounded-xl shadow-md transition">
           {isPlaying ? '⏸️' : '▶️'}
         </button>
-
-        {/* ⏭️ Next */}
-        <button
-          onClick={onNext}
-          className="text-xl hover:text-accent transition-colors"
-        >
-          ⏭️
-        </button>
-
-        {/* 🔁 Shuffle */}
-        <button
-          onClick={onToggleShuffle}
-          className={`text-xl transition-colors ${
-            shuffle ? 'text-accent' : 'hover:text-accent'
-          }`}
-        >
+        <button onClick={onNext} className="text-xl hover:text-accent transition-colors">⏭️</button>
+        <button onClick={onToggleShuffle} className={`text-xl transition-colors ${shuffle ? 'text-accent' : 'hover:text-accent'}`}>
           🔀
         </button>
       </div>
