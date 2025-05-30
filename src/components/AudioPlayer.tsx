@@ -3,21 +3,22 @@ import React, { useEffect, useRef } from 'react';
 import { Song } from '../types';
 
 interface AudioPlayerProps {
-  song: Song | null;
+  song?: Song;
   isPlaying: boolean;
   volume: number;
   playbackSpeed: number;
+  onError?: (error: string) => void;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({
+export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   song,
   isPlaying,
   volume,
   playbackSpeed,
+  onError,
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Handle audio source and playback
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !song?.audio) return;
@@ -31,7 +32,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
       try {
         await audio.play();
       } catch (error) {
-        console.warn('⚠️ Playback failed:', error);
+        const message = error instanceof Error ? error.message : 'Failed to play audio';
+        console.error('Audio playback error:', error);
+        onError?.(message);
       }
     };
 
@@ -42,14 +45,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }, [song, isPlaying]);
 
-  // Handle volume changes
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = Math.max(0, Math.min(100, volume)) / 100;
     }
   }, [volume]);
 
-  // Handle playback speed changes
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.playbackRate = playbackSpeed;
@@ -66,5 +67,3 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     />
   );
 };
-
-export default AudioPlayer;
