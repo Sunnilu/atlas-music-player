@@ -1,9 +1,9 @@
 // src/components/MusicPlayer.tsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CurrentlyPlaying from '@components/CurrentlyPlaying';
 import Footer from '@components/Footer';
 import LoadingSkeleton from '@components/LoadingSkeleton';
-import AudioPlayer from '@components/AudioPlayer';
+import { AudioPlayer } from '@components/AudioPlayer';
 import { Song } from '@types';
 import { useSongsApi } from '../api/services';
 
@@ -130,7 +130,7 @@ export default function MusicPlayer() {
         </div>
       </main>
       <AudioPlayer
-        song={currentSong}
+        song={currentSong ?? undefined}
         isPlaying={isPlaying}
         volume={volume}
         playbackSpeed={playbackSpeed}
