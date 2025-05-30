@@ -17,46 +17,66 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Load and control playback
+  // Attempt to play audio based on props
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !song?.audio) return;
 
-    console.log('🎵 Current song audio:', song.audio); // Log audio URL for debugging
-
+    // Log audio URL
+    console.log('🎵 Attempting to play audio:', song.audio);
     audio.src = song.audio;
     audio.load();
 
-    const playAudio = async () => {
+    const tryPlay = async () => {
       try {
         await audio.play();
-      } catch (err) {
-        console.warn('Playback error:', err);
+        console.log('🎶 Playback started');
+      } catch (error) {
+        console.warn('⚠️ Playback failed:', error);
       }
     };
 
     if (isPlaying) {
-      playAudio();
+      tryPlay();
     } else {
       audio.pause();
     }
   }, [song, isPlaying]);
 
-  // Volume control
+  // Update volume
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume / 100;
     }
   }, [volume]);
 
-  // Playback speed control
+  // Update playback speed
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.playbackRate = playbackSpeed;
     }
   }, [playbackSpeed]);
 
-  return <audio ref={audioRef} hidden controls preload="auto" />;
+  return (
+    <div className="hidden">
+      <audio ref={audioRef} controls preload="auto" />
+      {/* Debugging fallback manual trigger */}
+      <button
+        className="text-sm text-blue-500 underline mt-2"
+        onClick={() => {
+          const audio = audioRef.current;
+          if (audio) {
+            audio
+              .play()
+              .then(() => console.log('🔊 Manual play succeeded'))
+              .catch((e) => console.error('Manual play failed:', e));
+          }
+        }}
+      >
+        ▶️ Try manual play
+      </button>
+    </div>
+  );
 };
 
 export default AudioPlayer;
