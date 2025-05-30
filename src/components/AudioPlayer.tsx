@@ -17,20 +17,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Attempt to play audio based on props
+  // Handle audio source and playback
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !song?.audio) return;
 
-    // Log audio URL
-    console.log('🎵 Attempting to play audio:', song.audio);
+    // Update audio source
     audio.src = song.audio;
     audio.load();
 
+    // Handle playback
     const tryPlay = async () => {
       try {
         await audio.play();
-        console.log('🎶 Playback started');
       } catch (error) {
         console.warn('⚠️ Playback failed:', error);
       }
@@ -43,14 +42,14 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     }
   }, [song, isPlaying]);
 
-  // Update volume
+  // Handle volume changes
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume / 100;
+      audioRef.current.volume = Math.max(0, Math.min(100, volume)) / 100;
     }
   }, [volume]);
 
-  // Update playback speed
+  // Handle playback speed changes
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.playbackRate = playbackSpeed;
@@ -58,24 +57,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   }, [playbackSpeed]);
 
   return (
-    <div className="hidden">
-      <audio ref={audioRef} controls preload="auto" />
-      {/* Debugging fallback manual trigger */}
-      <button
-        className="text-sm text-blue-500 underline mt-2"
-        onClick={() => {
-          const audio = audioRef.current;
-          if (audio) {
-            audio
-              .play()
-              .then(() => console.log('🔊 Manual play succeeded'))
-              .catch((e) => console.error('Manual play failed:', e));
-          }
-        }}
-      >
-        ▶️ Try manual play
-      </button>
-    </div>
+    <audio
+      ref={audioRef}
+      src={song?.audio || ''}
+      className="hidden"
+      preload="auto"
+      crossOrigin="anonymous"
+    />
   );
 };
 
