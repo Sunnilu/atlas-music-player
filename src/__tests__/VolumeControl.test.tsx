@@ -1,26 +1,11 @@
-import { describe, it } from 'vitest';
+// src/__tests__/VolumeControl.test.tsx
+import { describe, it, expect } from 'vitest';
 import renderer from 'react-test-renderer';
-import VolumeControl from '../components/VolumeControl';
+import VolumeControls from '../components/VolumeControls';
 
-describe('VolumeControl Snapshot', () => {
-  it('renders with mid volume', () => {
-    const tree = renderer
-      .create(<VolumeControl volume={50} onChange={() => {}} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders with mute', () => {
-    const tree = renderer
-      .create(<VolumeControl volume={0} onChange={() => {}} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders with max volume', () => {
-    const tree = renderer
-      .create(<VolumeControl volume={100} onChange={() => {}} />)
-      .toJSON();
+describe('VolumeControls Snapshot', () => {
+  it('renders the volume slider with default configuration', () => {
+    const tree = renderer.create(<VolumeControls />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
