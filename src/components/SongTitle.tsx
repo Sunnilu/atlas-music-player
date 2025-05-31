@@ -1,9 +1,16 @@
-const SongTitle = ({ song }) => {
-  if (!song) return <p className="text-white">No song selected</p>;
-  return (
-    <div className="text-center text-white">
-      <p className="font-bold">{song.title}</p>
-      <p className="text-sm text-gray-300">{song.artist}</p>
-    </div>
-  );
-};
+// src/components/SongTitle.tsx
+import React from 'react';
+
+interface SongTitleProps {
+  title: string;
+  artist: string;
+}
+
+const SongTitle: React.FC<SongTitleProps> = ({ title, artist }) => (
+  <div className="text-center">
+    <h2 className="text-xl font-bold">{title}</h2>
+    <p className="text-gray-500">{artist}</p>
+  </div>
+);
+
+export default SongTitle;
