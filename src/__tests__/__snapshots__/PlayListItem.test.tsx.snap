@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PlayListItem Snapshot > renders as not selected 1`] = `null`;
+
+exports[`PlayListItem Snapshot > renders as selected 1`] = `null`;
+
+exports[`PlayListItem Snapshot > renders with short duration 1`] = `null`;

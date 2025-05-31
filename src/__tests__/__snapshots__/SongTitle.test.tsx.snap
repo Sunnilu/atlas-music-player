@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SongTitle Snapshot > renders with empty title and artist 1`] = `null`;
+
+exports[`SongTitle Snapshot > renders with long title and artist 1`] = `null`;
+
+exports[`SongTitle Snapshot > renders with standard title and artist 1`] = `null`;
