@@ -1,8 +1,7 @@
-// src/__tests__/MusicPlayer.test.tsx
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { rest } from 'msw';
 import { server } from '../mocks/server';
-import { rest } from 'msw/node';
 import MusicPlayer from '@components/MusicPlayer';
 
 // Mock playlist and song data
@@ -32,10 +31,12 @@ const mockPlaylist = [
 ];
 
 beforeAll(() => {
-  // Override default handler with mockPlaylist for all tests
   server.use(
-    rest.get('/api/v1/playlist', (_req: any, res: (arg0: any, arg1: any) => any, ctx: { status: (arg0: number) => any; json: (arg0: { id: number; title: string; artist: string; author: string; genre: string; duration: string; image: string; cover: string; audio: string; }[]) => any; }) =>
+    rest.get('/api/v1/playlist', (req, res, ctx) =>
       res(ctx.status(200), ctx.json(mockPlaylist))
+    ),
+    rest.get('/api/v1/song/cm3ixp4sy0thg0cmtdzukgg56', (req, res, ctx) =>
+      res(ctx.status(200), ctx.json(mockPlaylist[0]))
     )
   );
   server.listen();
@@ -92,9 +93,8 @@ describe('MusicPlayer Component', () => {
   });
 
   it('shows error message if API fails', async () => {
-    // Override success response with error
     server.use(
-      rest.get('/api/v1/playlist', (_req: any, res: (arg0: any, arg1: any) => any, ctx: { status: (arg0: number) => any; json: (arg0: { error: string; }) => any; }) =>
+      rest.get('/api/v1/playlist', (req, res, ctx) =>
         res(ctx.status(500), ctx.json({ error: 'Server error' }))
       )
     );
@@ -103,5 +103,19 @@ describe('MusicPlayer Component', () => {
     await waitFor(() =>
       expect(screen.getByText(/Error Loading Music Player/i)).toBeInTheDocument()
     );
+  });
+
+  it('navigates forward and backward between songs', async () => {
+    render(<MusicPlayer />);
+    await screen.findByText('Test Song One');
+
+    const forwardButton = screen.getByRole('button', { name: /forward/i });
+    const backButton = screen.getByRole('button', { name: /back/i });
+
+    fireEvent.click(forwardButton);
+    expect(await screen.findByText('Test Song Two')).toBeInTheDocument();
+
+    fireEvent.click(backButton);
+    expect(await screen.findByText('Test Song One')).toBeInTheDocument();
   });
 });
