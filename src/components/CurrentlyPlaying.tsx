@@ -1,7 +1,6 @@
-// src/components/CurrentlyPlaying.tsx
 import React from 'react';
-import { Song } from '../types'; // Fixed relative import
-import CoverArt from './CoverArt'; // ✅ Fixed import to relative path
+import { Song } from '../types';
+import CoverArt from './CoverArt';
 
 interface CurrentlyPlayingProps {
   song: Song | null;
@@ -45,15 +44,39 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
 
       {/* ✅ Playback Controls */}
       <div className="flex items-center gap-4 mb-4">
-        <button onClick={onSpeedChange} className="text-sm px-2 py-1 bg-surface text-white rounded-md hover:bg-accent transition">
+        <button
+          onClick={onSpeedChange}
+          className="text-sm px-2 py-1 bg-surface text-white rounded-md hover:bg-accent transition"
+          aria-label="Speed"
+        >
           {playbackSpeed}x
         </button>
-        <button onClick={onPrevious} className="text-xl hover:text-accent transition-colors">⏮️</button>
-        <button onClick={onPlay} className="text-xl bg-primary hover:bg-accent text-white px-4 py-2 rounded-xl shadow-md transition">
+        <button
+          onClick={onPrevious}
+          className="text-xl hover:text-accent transition-colors"
+          aria-label="Back"
+        >
+          ⏮️
+        </button>
+        <button
+          onClick={onPlay}
+          className="text-xl bg-primary hover:bg-accent text-white px-4 py-2 rounded-xl shadow-md transition"
+          aria-label={isPlaying ? 'Pause' : 'Play'}
+        >
           {isPlaying ? '⏸️' : '▶️'}
         </button>
-        <button onClick={onNext} className="text-xl hover:text-accent transition-colors">⏭️</button>
-        <button onClick={onToggleShuffle} className={`text-xl transition-colors ${shuffle ? 'text-accent' : 'hover:text-accent'}`}>
+        <button
+          onClick={onNext}
+          className="text-xl hover:text-accent transition-colors"
+          aria-label="Forward"
+        >
+          ⏭️
+        </button>
+        <button
+          onClick={onToggleShuffle}
+          className={`text-xl transition-colors ${shuffle ? 'text-accent' : 'hover:text-accent'}`}
+          aria-label="Shuffle"
+        >
           🔀
         </button>
       </div>
@@ -68,6 +91,7 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
           value={volume}
           onChange={(e) => onVolumeChange(Number(e.target.value))}
           className="w-full accent-primary"
+          aria-label="Volume"
         />
       </div>
     </div>
