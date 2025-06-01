@@ -15,14 +15,14 @@ export default function MusicPlayer() {
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const { fetchSong, fetchPlaylist } = useSongsApi();
 
   useEffect(() => {
     const initializePlayer = async () => {
       try {
         const playlistResponse = await fetchPlaylist();
-        
+
         if (playlistResponse.status === 'success') {
           const normalizedPlaylist = (playlistResponse.data || []).map((song: any) => ({
             id: Number(song.id),
@@ -36,10 +36,10 @@ export default function MusicPlayer() {
             audio: song.audio ?? song.url ?? '',
           }));
           setPlaylist(normalizedPlaylist);
-          
+
           const songId = 'cm3ixp4sy0thg0cmtdzukgg56';
           const songResponse = await fetchSong(songId);
-          
+
           if (songResponse.status === 'success' && songResponse.data) {
             setCurrentSong({
               ...songResponse.data,
@@ -63,8 +63,22 @@ export default function MusicPlayer() {
 
   const handlePlay = () => setIsPlaying(!isPlaying);
   const handleVolumeChange = (v: number) => setVolume(v);
-  const handleSpeedChange = () => 
+  const handleSpeedChange = () =>
     setPlaybackSpeed((prev) => (prev === 2 ? 0.5 : prev === 1 ? 2 : 1));
+
+  const handleNext = () => {
+    if (!currentSong || playlist.length === 0) return;
+    const currentIndex = playlist.findIndex(song => song.id === currentSong.id);
+    const nextIndex = (currentIndex + 1) % playlist.length;
+    setCurrentSong(playlist[nextIndex]);
+  };
+
+  const handlePrevious = () => {
+    if (!currentSong || playlist.length === 0) return;
+    const currentIndex = playlist.findIndex(song => song.id === currentSong.id);
+    const prevIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+    setCurrentSong(playlist[prevIndex]);
+  };
 
   if (error) {
     return (
@@ -98,8 +112,8 @@ export default function MusicPlayer() {
               onSpeedChange={handleSpeedChange}
               shuffle={false}
               onToggleShuffle={() => {}}
-              onPrevious={() => {}}
-              onNext={() => {}}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
             />
           )}
         </div>
