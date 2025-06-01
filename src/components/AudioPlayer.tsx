@@ -1,4 +1,3 @@
-// src/components/AudioPlayer.tsx
 import React, { useEffect, useRef } from 'react';
 import { Song } from '../types';
 
@@ -23,11 +22,11 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
     const audio = audioRef.current;
     if (!audio || !song?.audio) return;
 
-    // Update audio source
+    audio.pause();
+    audio.currentTime = 0;
     audio.src = song.audio;
     audio.load();
 
-    // Handle playback
     const tryPlay = async () => {
       try {
         await audio.play();
@@ -40,8 +39,6 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
     if (isPlaying) {
       tryPlay();
-    } else {
-      audio.pause();
     }
   }, [song, isPlaying]);
 
@@ -60,7 +57,6 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   return (
     <audio
       ref={audioRef}
-      src={song?.audio || ''}
       className="hidden"
       preload="auto"
       crossOrigin="anonymous"
