@@ -1,4 +1,15 @@
 node_modules
-dist
 coverage
+dist
 build
+public
+.DS_Store
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
+*.ttf
+*.woff
+*.woff2
