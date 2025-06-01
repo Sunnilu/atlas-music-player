@@ -13,3 +13,5 @@ public
 *.ttf
 *.woff
 *.woff2
+Tailwindcss.js
+tailwindcss.js
