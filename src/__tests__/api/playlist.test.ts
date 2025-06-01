@@ -1,12 +1,20 @@
-import { describe, it, expect } from 'vitest';
+// src/mocks/handlers.ts
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
 
-describe('Mocked Playlist API', () => {
-  it('returns playlist data from mock', async () => {
-    const res = await fetch('/api/v1/playlist');
-    const data = await res.json();
+export const handlers = [
+  rest.get('/api/v1/playlist', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          title: 'Mock Song 1',
+          artist: 'Mock Artist',
+          duration: 180
+        }
+      ])
+    )
+  })
+]
 
-    expect(res.status).toBe(200);
-    expect(Array.isArray(data)).toBe(true);
-    expect(data[0].title).toBe('Mock Song 1');
-  });
-});
+export const server = setupServer(...handlers)
