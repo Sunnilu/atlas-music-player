@@ -2,7 +2,7 @@
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { server } from '../mocks/server';
-import { rest } from 'msw';
+import { rest } from 'msw/node';
 import MusicPlayer from '@components/MusicPlayer';
 
 // Mock playlist and song data
@@ -34,7 +34,7 @@ const mockPlaylist = [
 beforeAll(() => {
   // Override default handler with mockPlaylist for all tests
   server.use(
-    rest.get('/api/v1/playlist', (_req, res, ctx) =>
+    rest.get('/api/v1/playlist', (_req: any, res: (arg0: any, arg1: any) => any, ctx: { status: (arg0: number) => any; json: (arg0: { id: number; title: string; artist: string; author: string; genre: string; duration: string; image: string; cover: string; audio: string; }[]) => any; }) =>
       res(ctx.status(200), ctx.json(mockPlaylist))
     )
   );
@@ -94,7 +94,7 @@ describe('MusicPlayer Component', () => {
   it('shows error message if API fails', async () => {
     // Override success response with error
     server.use(
-      rest.get('/api/v1/playlist', (_req, res, ctx) =>
+      rest.get('/api/v1/playlist', (_req: any, res: (arg0: any, arg1: any) => any, ctx: { status: (arg0: number) => any; json: (arg0: { error: string; }) => any; }) =>
         res(ctx.status(500), ctx.json({ error: 'Server error' }))
       )
     );
