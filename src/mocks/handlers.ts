@@ -1,5 +1,6 @@
+// src/mocks/handlers.ts
 import { rest } from 'msw';
-// This file defines the mock API handlers for the playlist endpoint.
+
 export const handlers = [
   rest.get('/api/v1/playlist', (req, res, ctx) => {
     return res(
