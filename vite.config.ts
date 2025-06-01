@@ -9,8 +9,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, './src/components'),
-      '@types': path.resolve(__dirname, './src/types')
-    }
+      '@types': path.resolve(__dirname, './src/types'),
+    },
   },
   test: {
     environment: 'jsdom',
@@ -19,7 +19,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       reportsDirectory: './coverage',
-      exclude: ['node_modules', 'vite.config.ts']
-    }
-  }
+      exclude: ['node_modules', 'vite.config.ts'],
+    },
+  },
 });
