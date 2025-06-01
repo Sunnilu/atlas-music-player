@@ -7,5 +7,11 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
+    coverage: {
+      provider: 'v8', // 👈 Use the V8 provider
+      reportsDirectory: './coverage', // 👈 Output folder
+      reporter: ['text', 'html'], // 👈 CLI + UI
+      include: ['src/**/*.{ts,tsx}'], // 👈 Source files to measure
+    },
   },
 });
