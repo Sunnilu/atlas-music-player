@@ -12,7 +12,7 @@ const mockSong: Song = {
   duration: '3:00',
   lyrics: '',
   cover: undefined,
-  author: ''
+  author: '',
 };
 
 describe('CoverArt Snapshot', () => {
@@ -21,4 +21,3 @@ describe('CoverArt Snapshot', () => {
     expect(tree).toMatchSnapshot();
   });
 });
-

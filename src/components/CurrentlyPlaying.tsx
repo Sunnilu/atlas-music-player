@@ -32,42 +32,42 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
   if (!song) return null;
 
   return (
-    <div className="flex flex-col items-center bg-bg-dark text-text-light p-6 rounded-2xl shadow-custom w-full h-full font-custom transition-all">
+    <div className="flex h-full w-full flex-col items-center rounded-2xl bg-bg-dark p-6 font-custom text-text-light shadow-custom transition-all">
       {/* ✅ Album Cover */}
       <CoverArt song={song} />
 
       {/* ✅ Song Title + Artist */}
-      <div className="text-center mb-4">
+      <div className="mb-4 text-center">
         <h3 className="text-xl font-bold">{song.title}</h3>
         <p className="text-sm text-gray-400">{song.author}</p>
       </div>
 
       {/* ✅ Playback Controls */}
-      <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4 flex items-center gap-4">
         <button
           onClick={onSpeedChange}
-          className="text-sm px-2 py-1 bg-surface text-white rounded-md hover:bg-accent transition"
+          className="rounded-md bg-surface px-2 py-1 text-sm text-white transition hover:bg-accent"
           aria-label="Speed"
         >
           {playbackSpeed}x
         </button>
         <button
           onClick={onPrevious}
-          className="text-xl hover:text-accent transition-colors"
+          className="text-xl transition-colors hover:text-accent"
           aria-label="Back"
         >
           ⏮️
         </button>
         <button
           onClick={onPlay}
-          className="text-xl bg-primary hover:bg-accent text-white px-4 py-2 rounded-xl shadow-md transition"
+          className="rounded-xl bg-primary px-4 py-2 text-xl text-white shadow-md transition hover:bg-accent"
           aria-label={isPlaying ? 'Pause' : 'Play'}
         >
           {isPlaying ? '⏸️' : '▶️'}
         </button>
         <button
           onClick={onNext}
-          className="text-xl hover:text-accent transition-colors"
+          className="text-xl transition-colors hover:text-accent"
           aria-label="Forward"
         >
           ⏭️
@@ -82,7 +82,7 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
       </div>
 
       {/* ✅ Volume Slider */}
-      <div className="flex items-center w-full gap-2">
+      <div className="flex w-full items-center gap-2">
         <span className="text-sm">🔊</span>
         <input
           type="range"

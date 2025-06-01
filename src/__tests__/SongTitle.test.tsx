@@ -24,9 +24,7 @@ describe('SongTitle Snapshot', () => {
   });
 
   it('renders with empty title and artist', () => {
-    const tree = renderer
-      .create(<SongTitle title="" artist="" />)
-      .toJSON();
+    const tree = renderer.create(<SongTitle title="" artist="" />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

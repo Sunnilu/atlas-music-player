@@ -3,18 +3,18 @@ import { Play, Pause, SkipBack, SkipForward, Shuffle } from 'react';
 
 export default function PlayControls() {
   return (
-    <div className="flex justify-center gap-4 mb-6">
-      <button className="w-12 h-12 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
-        <SkipBack className="w-6 h-6 text-gray-600" />
+    <div className="mb-6 flex justify-center gap-4">
+      <button className="h-12 w-12 rounded-full bg-gray-100 transition-colors hover:bg-gray-200">
+        <SkipBack className="h-6 w-6 text-gray-600" />
       </button>
-      <button className="w-14 h-14 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors">
-        <Play className="w-8 h-8 text-white" />
+      <button className="h-14 w-14 rounded-full bg-blue-600 transition-colors hover:bg-blue-700">
+        <Play className="h-8 w-8 text-white" />
       </button>
-      <button className="w-12 h-12 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
-        <SkipForward className="w-6 h-6 text-gray-600" />
+      <button className="h-12 w-12 rounded-full bg-gray-100 transition-colors hover:bg-gray-200">
+        <SkipForward className="h-6 w-6 text-gray-600" />
       </button>
-      <button className="w-12 h-12 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
-        <Shuffle className="w-6 h-6 text-gray-600" />
+      <button className="h-12 w-12 rounded-full bg-gray-100 transition-colors hover:bg-gray-200">
+        <Shuffle className="h-6 w-6 text-gray-600" />
       </button>
     </div>
   );

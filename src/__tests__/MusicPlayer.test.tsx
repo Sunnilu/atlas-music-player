@@ -101,7 +101,9 @@ describe('MusicPlayer Component', () => {
 
     render(<MusicPlayer />);
     await waitFor(() =>
-      expect(screen.getByText(/Error Loading Music Player/i)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Error Loading Music Player/i)
+      ).toBeInTheDocument()
     );
   });
 

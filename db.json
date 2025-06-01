@@ -1,20 +1,19 @@
 {
-    "playlist": [
-      {
-        "id": 1,
-        "title": "Painted in Blue",
-        "artist": "Soul Canvas",
-        "duration": "5:55",
-        "image": "/placeholder.jpg",
-        "lyrics": "A blue sky painted with emotion..."
-      },
-      {
-        "id": 2,
-        "title": "Tidal Drift",
-        "artist": "Echoes of the Sea",
-        "duration": "8:02",
-        "image": "/placeholder.jpg"
-      }
-    ]
-  }
-  
+  "playlist": [
+    {
+      "id": 1,
+      "title": "Painted in Blue",
+      "artist": "Soul Canvas",
+      "duration": "5:55",
+      "image": "/placeholder.jpg",
+      "lyrics": "A blue sky painted with emotion..."
+    },
+    {
+      "id": 2,
+      "title": "Tidal Drift",
+      "artist": "Echoes of the Sea",
+      "duration": "8:02",
+      "image": "/placeholder.jpg"
+    }
+  ]
+}

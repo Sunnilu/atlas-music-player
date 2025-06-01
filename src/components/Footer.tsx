@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 const Footer = () => {
-  const [darkMode, setDarkMode] = useState(() =>
-    window.matchMedia('(prefers-color-scheme: dark)').matches
+  const [darkMode, setDarkMode] = useState(
+    () => window.matchMedia('(prefers-color-scheme: dark)').matches
   );
 
   useEffect(() => {
@@ -10,11 +10,11 @@ const Footer = () => {
   }, [darkMode]);
 
   return (
-    <footer className="text-center py-6 text-sm font-custom text-gray-700 dark:text-text-light">
+    <footer className="py-6 text-center font-custom text-sm text-gray-700 dark:text-text-light">
       <p>&copy; 2024 Atlas School. All rights reserved.</p>
       <button
         onClick={() => setDarkMode((prev) => !prev)}
-        className="mt-2 underline text-xs text-primary hover:text-accent dark:text-text-light"
+        className="mt-2 text-xs text-primary underline hover:text-accent dark:text-text-light"
       >
         Toggle {darkMode ? 'Light' : 'Dark'} Mode
       </button>

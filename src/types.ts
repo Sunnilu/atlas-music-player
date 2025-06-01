@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 // src/types.ts
 export interface Song {
@@ -6,7 +6,7 @@ export interface Song {
   cover: string | undefined;
   id: number;
   title: string;
-  author: string;      // 🔁 renamed from `artist`
+  author: string; // 🔁 renamed from `artist`
   duration: string;
   image: string;
   lyrics?: string;

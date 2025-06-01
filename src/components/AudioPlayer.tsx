@@ -31,7 +31,8 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
       try {
         await audio.play();
       } catch (error) {
-        const message = error instanceof Error ? error.message : 'Failed to play audio';
+        const message =
+          error instanceof Error ? error.message : 'Failed to play audio';
         console.error('Audio playback error:', error);
         onError?.(message);
       }
